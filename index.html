@@ -13,25 +13,9 @@ index.html
 
 
 <style>
-html, body { overflow-x: hidden; }
+html, body { overflow-x: hidden;
+cursor: crosshair;}
 
-/* ---------- FONTS (your folder: "Maison Neue") ---------- */
-@font-face{
-  font-family:"Maison Neue";
-  src:url("./Maison Neue/MaisonNeue-Book.woff2") format("woff2"),
-      url("./Maison Neue/MaisonNeue-Book.woff") format("woff");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
-}
-@font-face{
-  font-family:"Maison Neue";
-  src:url("./Maison Neue/MaisonNeue-Medium.woff2") format("woff2"),
-      url("./Maison Neue/MaisonNeue-Medium.woff") format("woff");
-  font-weight:500;
-  font-style:normal;
-  font-display:swap;
-}
 
 :root{
   --bg:#fff;
@@ -55,13 +39,19 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--fg);
-  font-family:"Maison Neue", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
   letter-spacing:-0.01em;
 }
 a{ color:inherit; text-decoration:none; }
-
+h3{font-size: var(--micro);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fg);
+  line-height: 1.25;
+  pointer-events: none;}
 /* ---------- TOP NAV ---------- */
 .topnav{
   position:sticky;
@@ -111,6 +101,7 @@ a{ color:inherit; text-decoration:none; }
   color: var(--fg);
   opacity:.9;
   padding: 4px 0;
+  cursor: crosshair;
 }
 .nav-link[aria-current="page"]{
   opacity:1;
@@ -147,7 +138,6 @@ background: rgba(255,255,255,.8);
 border-radius: 999px;
 align-items:center;
 justify-content:center;
-cursor:pointer;
 }
 
 .nav-toggle span{
@@ -241,7 +231,6 @@ margin: 10px 0;
   position: relative;
   overflow: hidden;
   background: transparent;
-  cursor: pointer;
   border-radius: 50px;
   transform: translateZ(0);
   transition: transform .18s ease;
@@ -328,7 +317,7 @@ margin: 10px 0;
 
 .scrunchWord{
 font-size: clamp(60px, 9vw, 140px);
-/* font-weight: 700; */
+font-weight: 500;
 line-height: 1;
 display:flex;
 white-space: nowrap;
@@ -353,55 +342,108 @@ transition: letter-spacing 5s ease;
 .scrunchWord, .scrunchWord .ch{ transition:none !important; animation:none !important; }
 }
 
-/* ---------- Word Physics section (scoped) ---------- */
-.wordPhysics{
+/* ---------- PHYSICS ZONE (spans image + caption + footer) ---------- */
+.physicsZone{
   position: relative;
   margin: 28px var(--padX) 0;
-  /* border: 1px solid var(--hair);
-  border-radius: 50px; */
-  padding: 18px;
+  padding: 0;
   overflow: hidden;
-  /* background: #1E1E1E; keep the vibe but only inside this section */
-  min-height: 420px;
+
+  /* Tall “runway” for falling words */
+  min-height: 120vh;
+
+  /* extra landing room above footer */
+  padding-bottom: 220px;
 }
 
-.wordPhysics__text{
-  /* we hide the “raw” paragraph because we’ll replace it with spans */
+/* Hidden source text; we replace it with spans */
+.physicsTextSource{
   color: transparent;
   user-select: none;
   line-height: 1.35;
   margin: 0;
+  padding: 0;
 }
 
-/* each split word becomes absolutely positioned */
-.wordPhysics .word{
+/* Matter.js stage covers the whole zone */
+.physicsStage{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none; /* allow page scroll through canvas */
+}
+
+.physicsStage canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Each split word */
+.physicsZone .word{
   position: absolute;
   cursor: grab;
   font-size: 22px;
   color: #1e1e1e;
   user-select: none;
   touch-action: none;
+  z-index: 3; /* words above image + caption */
 }
-
-.wordPhysics .word.highlighted{
+.physicsZone .word.highlighted{
   font-weight: 900;
-  /* color: #2b59ff; */
-  border-radius: 6px;
   padding: 0 4px;
+  border-radius: 6px;
 }
 
-.wordPhysics__stage{
-  position: absolute;
-  inset: 0;
-  pointer-events: none; /* canvas doesn’t block grabbing the words */
+/* Image block (centered, screenshot-like proportions) */
+.featureMedia{
+  position: relative;
+  z-index: 2;
+  width: min(974px, 100%);
+  margin: 40px auto 10px;
+  pointer-events: none; /* so dragging still works over it */
 }
-
-/* make canvas fit the stage */
-.wordPhysics__stage canvas{
-  width: 100% !important;
-  height: 100% !important;
+.featureMedia img{
+  width: 100%;
+  height: auto;
   display: block;
+  border-radius: 50px;
 }
+
+/* Caption under image */
+.featureCaption{
+  position: relative;
+  z-index: 2;
+  width: min(974px, 100%);
+  margin: 20px auto 0;
+  font-size: var(--micro);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-align: justify;
+  color: var(--fg);
+  line-height: 1.25;
+  pointer-events: none; /* so dragging still works over it */
+}
+
+/* Minimal footer with landing space */
+.miniFooter{
+  position: relative;
+  z-index: 2;
+  margin-top: 140px;
+  padding: 40px var(--padX) 60px;
+}
+.miniFooter__nav{
+  display:flex;
+  justify-content:center;
+  gap: 22px;
+  font-size: var(--micro);
+  /* color: rgba(11,11,11,.45); */
+}
+.miniFooter__nav a{
+  pointer-events: auto; /* links clickable */
+  color: inherit;
+}
+
 
 </style>
 </head>
@@ -477,7 +519,7 @@ aria-controls="navMenu">
     </a>
 
     <a class="tile t5 fade-loop" style="--d: 14s; --delay: -9.1s;" href="photography.html" aria-label="Open photography (tile 5)">
-    <img src="./Images/team01.png" alt="" />
+    <img src="./Images/Team01.png" alt="" />
     </a>
 
     <a class="tile t6 fade-loop" style="--d: 11s; --delay: -4.7s;" href="productdesign.html" aria-label="Open photography (tile 6)">
@@ -489,20 +531,49 @@ aria-controls="navMenu">
 </main>
 
 <br><br>
-<div class="scrunchWord" id="word">Maite Studio</div>
+<center><h3>Hi there, I'm a brand and product designer. My name is</h3></center>
+<div class="scrunchWord" id="word">lorena maite</div>
 
-<section class="wordPhysics" aria-label="About text physics">
-
-  <!-- This is the text that will be split into draggable words -->
-  <div class="wordPhysics__text">
-    <h1>designer. builder. thinker.
-I create digital and physical objects that balance clarity and emotion.
-Maite Studio is an evolving archive of work, process, and intention.
-Everything here is designed with care.</h1>
+<br><br>
+<section class="physicsZone" id="physicsZone" aria-label="Maite Studio word physics">
+  <!-- Source text (hidden; gets split into draggable words) -->
+  <div class="physicsTextSource">
+    designer. builder. thinker.
+    I create digital and physical objects that balance clarity and emotion.
+    Maite Studio is an evolving archive of work, process, and intention.
+    Everything here is designed with care.
   </div>
 
-  <!-- Matter.js will inject the canvas in here -->
-  <div class="wordPhysics__stage" aria-hidden="true"></div>
+  <!-- Matter.js canvas gets injected here -->
+  <div class="physicsStage" aria-hidden="true"></div>
+
+  <br><br>
+  <!-- Feature image (974 x 545) -->
+  <figure class="featureMedia">
+    <img
+      src="./Images/Team01.JPG"
+      width="974"
+      height="545"
+      alt=""
+      loading="lazy"
+    />
+  </figure>
+
+  <!-- Caption text under image (like screenshot) -->
+  <p class="featureCaption">
+    I DESIGN WEBSITES, BRAND SYSTEMS, AND VISUAL IDENTITIES WITH A DISTINCT POINT OF VIEW.
+    MY WORK IS ROOTED IN COMMUNITY, and CREATING EXPERIENCES THAT HELP PEOPLE FEEL SEEN AND CONNECTED.
+    NOT EVERYTHING IS MEANT FOR EVERYONE. THE RIGHT WORK FINDS THE RIGHT PEOPLE &lt;3
+  </p>
+
+  <!-- Minimal footer (space for words to settle) -->
+  <footer class="miniFooter" aria-label="Footer">
+    <nav class="miniFooter__nav" aria-label="Footer links">
+      <a href="webportfolio.html">WORK</a>
+      <a href="graphics.html">💽</a>
+      <a href="mailto:maite.studio@outlook.com">CONTACT</a>
+    </nav>
+  </footer>
 </section>
 
 
@@ -610,68 +681,76 @@ document.addEventListener("keydown", (e) => {
 
 <script>
 (() => {
-  const root = document.querySelector(".wordPhysics");
+  const root = document.getElementById("physicsZone");
   if (!root) return;
 
-  const textNode = root.querySelector(".wordPhysics__text");
-  const stage = root.querySelector(".wordPhysics__stage");
+  const textNode = root.querySelector(".physicsTextSource");
+  const stage = root.querySelector(".physicsStage");
+
+  let started = false;
 
   const splitWords = () => {
     const text = textNode.textContent.trim();
     const newDomElements = text.split(/\s+/).map((t) => {
+      const lower = t.toLowerCase();
       const highlighted =
-        t.includes(`builder.`) ||
-        t.includes(`thinker`) ||
-        t.includes(`designer`);
+        lower.includes("designer") ||
+        lower.includes("builder") ||
+        lower.includes("thinker") ||
+        lower.includes("maite");
       return `<span class="word ${highlighted ? "highlighted" : ""}">${t}</span>`;
     });
     textNode.innerHTML = newDomElements.join(" ");
   };
 
-  const renderCanvas = () => {
-    const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } = Matter;
+  const startPhysics = () => {
+    if (started) return;
+    started = true;
 
-    const rect = root.getBoundingClientRect();
-    const canvasSize = { width: rect.width, height: root.offsetHeight };
+    splitWords();
+
+    const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } = Matter;
 
     const engine = Engine.create();
 
-    // IMPORTANT: render into the stage (not document.body)
+    // zone size (tall runway)
+    const rect = root.getBoundingClientRect();
+    const width = Math.round(rect.width);
+    const height = Math.round(root.offsetHeight);
+
     const render = Render.create({
       element: stage,
       engine,
       options: {
-        width: canvasSize.width,
-        height: canvasSize.height,
+        width,
+        height,
         background: "transparent",
         wireframes: false
       }
     });
 
-    const wallParams = {
-      isStatic: true,
-      render: { fillStyle: "transparent" }
-    };
+    const wallParams = { isStatic: true, render: { fillStyle: "transparent" } };
 
-    const floor = Bodies.rectangle(canvasSize.width / 2, canvasSize.height + 25, canvasSize.width, 50, wallParams);
-    const left  = Bodies.rectangle(-25, canvasSize.height / 2, 50, canvasSize.height, wallParams);
-    const right = Bodies.rectangle(canvasSize.width + 25, canvasSize.height / 2, 50, canvasSize.height, wallParams);
-    const top   = Bodies.rectangle(canvasSize.width / 2, -25, canvasSize.width, 50, wallParams);
+    // “Floor” sits at bottom of zone
+    const floor = Bodies.rectangle(width / 2, height + 25, width, 50, wallParams);
+    const left  = Bodies.rectangle(-25, height / 2, 50, height, wallParams);
+    const right = Bodies.rectangle(width + 25, height / 2, 50, height, wallParams);
+    const top   = Bodies.rectangle(width / 2, -25, width, 50, wallParams);
 
     const wordElements = root.querySelectorAll(".word");
     const wordBodies = [...wordElements].map((elemRef) => {
-      const width = elemRef.offsetWidth;
-      const height = elemRef.offsetHeight;
+      const w = elemRef.offsetWidth;
+      const h = elemRef.offsetHeight;
 
       return {
-        body: Bodies.rectangle(canvasSize.width / 2, 40, width, height, {
+        body: Bodies.rectangle(width / 2, 10, w, h, {
           restitution: 0.2,
           friction: 0.2,
           render: { fillStyle: "transparent" }
         }),
         elem: elemRef,
-        w: width,
-        h: height,
+        w,
+        h,
         render() {
           const { x, y } = this.body.position;
           this.elem.style.left = `${x - this.w / 2}px`;
@@ -681,11 +760,21 @@ document.addEventListener("keydown", (e) => {
       };
     });
 
-    const mouse = Mouse.create(render.canvas);
+    // Mouse on the canvas so dragging works
+    const mouse = Matter.Mouse.create(render.canvas);
+
+    // remove scroll blocking
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
     const mouseConstraint = MouseConstraint.create(engine, {
-      mouse,
-      constraint: { stiffness: 0.2, render: { visible: false } }
-    });
+    mouse,
+    constraint: {
+    stiffness: 0.2,
+    render: { visible: false }
+  }
+});
+
 
     World.add(engine.world, [
       floor, left, right, top,
@@ -701,19 +790,16 @@ document.addEventListener("keydown", (e) => {
       Engine.update(engine);
       requestAnimationFrame(loop);
     })();
-
-    // re-init on resize (simple + reliable)
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => location.reload(), 200);
-    });
   };
 
-  window.addEventListener("DOMContentLoaded", () => {
-    splitWords();
-    renderCanvas();
-  });
+  // Start physics when the zone becomes visible (not on initial load)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) startPhysics();
+    });
+  }, { threshold: 0.15 });
+
+  io.observe(root);
 })();
 </script>
 

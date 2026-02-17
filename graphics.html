@@ -1,0 +1,1140 @@
+<!-- =========================
+graphics.html
+========================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maite Studio — Graphics</title>
+
+  <style>
+    html, body { overflow-x: hidden; }
+    @font-face{
+      font-family:"Maison Neue";
+      src:url("./Maison Neue/MaisonNeue-Book.woff2") format("woff2"),
+          url("./Maison Neue/MaisonNeue-Book.woff") format("woff");
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+    @font-face{
+      font-family:"Maison Neue";
+      src:url("./Maison Neue/MaisonNeue-Medium.woff2") format("woff2"),
+          url("./Maison Neue/MaisonNeue-Medium.woff") format("woff");
+      font-weight:500;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    :root{
+      --bg:#fff;
+      --fg:#0b0b0b;
+      --muted:rgba(11,11,11,.55);
+      --hair:rgba(11,11,11,.12);
+      --hairline: rgba(11,11,11,.12);
+
+      --padX: clamp(16px, 2.8vw, 28px);
+      --padY: clamp(14px, 2.2vw, 24px);
+
+      --gap: 10px;
+      --navH: 54px;
+
+      --micro: 12px;
+      --body: 14px;
+
+      --radius: 14px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Maison Neue", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    button{ font: inherit; color: inherit; background: transparent; border: 0; padding: 0; cursor: pointer; }
+
+    .page{
+      min-height: 100%;
+      padding: var(--padY) var(--padX) 64px;
+    }
+
+    /* ---------- TOP NAV ---------- */
+    .topnav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      height: var(--navH);
+      display:flex;
+      align-items:center;
+      padding: 0 var(--padX);
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .topnav__row{
+      width:100%;
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items:center;
+      gap: 16px;
+    }
+    .nav-left{
+      justify-self:start;
+      font-size: var(--micro);
+      color: var(--fg);
+    }
+    .nav-center{
+      justify-self:center;
+      font-size: var(--micro);
+      color: var(--muted);
+    }
+    .nav-right{
+      justify-self:end;
+      display:flex;
+      align-items:center;
+      gap: 16px;
+      font-size: var(--micro);
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .nav-tabs{
+      display:flex;
+      gap: 14px;
+      align-items:center;
+    }
+    .nav-link{
+      position:relative;
+      color: var(--fg);
+      opacity:.9;
+      padding: 4px 0;
+    }
+    .nav-link[aria-current="page"]{ opacity:1; }
+    .nav-link[aria-current="page"]::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-6px;
+      height:1px;
+      background: var(--fg);
+      opacity:.6;
+    }
+    .dot{
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #2b59ff;
+      display:inline-block;
+      margin-left: 6px;
+    }
+
+    /* Prevent any accidental horizontal scroll */
+html, body { overflow-x: hidden; }
+
+/* --- Mobile nav toggle + drawer --- */
+.nav-toggle{
+  display:none;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--hair);
+  background: rgba(255,255,255,.8);
+  border-radius: 999px;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.nav-toggle span{
+  display:block;
+  width: 16px;
+  height: 1px;
+  background: var(--fg);
+  position: relative;
+}
+.nav-toggle span::before,
+.nav-toggle span::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width:16px;
+  height:1px;
+  background: var(--fg);
+}
+.nav-toggle span::before{ top:-5px; }
+.nav-toggle span::after{ top: 5px; }
+
+.nav-drawer{
+  display:none;
+}
+
+/* Mobile breakpoint (match your mosaic breakpoint) */
+@media (max-width: 820px){
+  .topnav__row{
+    grid-template-columns: 1fr auto; /* left + toggle */
+  }
+  .nav-center{ display:none; }
+
+  /* hide desktop right side so it can’t force width */
+  .nav-right{ display:none; }
+
+  .nav-toggle{ display:flex; justify-self:end; }
+
+  .nav-drawer{
+    display:block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--navH);
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--hair);
+    padding: 14px var(--padX) 18px;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+  }
+
+  .nav-drawer[data-open="true"]{
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-drawer a{
+    display:block;
+    padding: 10px 0;
+    font-size: var(--micro);
+  }
+
+  .nav-drawer .divider{
+    height:1px;
+    background: var(--hair);
+    margin: 10px 0;
+  }
+}
+
+    /* ---------- HERO ---------- */
+    .hero{ padding: 18px 0 10px; }
+    .hero__title{
+      font-size: clamp(44px, 6vw, 84px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      margin: 12px 0 6px;
+    }
+    .hero__title sup{
+      font-size: 0.36em;
+      top: -0.85em;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+    .hero__meta{
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 360px);
+      gap: 18px;
+      align-items: start;
+      margin-top: 6px;
+      padding-bottom: 12px;
+    }
+    .hero__metaRight{
+      font-size: var(--micro);
+      line-height: 1.35;
+      color: var(--muted);
+      justify-self: end;
+      text-align: left;
+    }
+
+    /* Controls row */
+    .controls{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0 14px;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      margin-top: 10px;
+    }
+    .controls__label{
+      font-size: var(--body);
+      color: var(--fg);
+      letter-spacing: -0.01em;
+    }
+    .controls__label span{
+      color: var(--muted);
+      font-size: var(--micro);
+      margin-left: 6px;
+      position: relative;
+      top: -1px;
+    }
+
+    .tabs{
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: var(--micro);
+      color: var(--muted);
+      user-select: none;
+    }
+    .tabs .tab{
+      position: relative;
+      padding: 6px 2px;
+      transition: color .18s ease;
+    }
+    .tabs .tab[aria-selected="true"]{ color: var(--fg); }
+    .tabs .tab[aria-selected="true"]::after{
+      content:"";
+      position:absolute;
+      left: 0; right: 0; bottom: 0px;
+      height: 1px;
+      background: var(--fg);
+      opacity: .45;
+    }
+
+    /* Gallery */
+    .gallery{ padding-top: 14px; }
+
+    .card{
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #f3f3f3;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transform: translateZ(0);
+    }
+    .card:focus-visible{ box-shadow: 0 0 0 2px rgba(43,89,255,.35); }
+    .card__img{
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transform: scale(1.001);
+      transition: transform .25s ease;
+    }
+    .card:hover .card__img{ transform: scale(1.02); }
+
+    .view-grid{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .view-grid .card{ aspect-ratio: 1 / 1; }
+
+    .view-list{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .row{
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .row:last-child{ border-bottom: 0; }
+    .row .card{
+      width: 160px;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+    }
+    .row__info{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .row__title{
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+    }
+    .row__meta{
+      font-size: var(--micro);
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .row__desc{
+      margin-top: 6px;
+      font-size: var(--micro);
+      line-height: 1.35;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    .view-feed{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      align-items: start;
+    }
+    .feed-item{ grid-column: span 4; aspect-ratio: 4 / 5; }
+    .feed-item.is-wide{ grid-column: span 8; aspect-ratio: 16 / 9; }
+    .feed-item.is-tall{ grid-column: span 4; aspect-ratio: 3 / 4; }
+    .feed-item.is-hero{ grid-column: span 12; aspect-ratio: 21 / 9; border-radius: 12px; }
+
+    .view-full{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding-top: 6px;
+    }
+    .fullstage{
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f5f5f5;
+      max-height: 70vh;
+    }
+    .fullstage img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* shows the full image */
+      background: #f5f5f5;
+    }
+    .fullbar{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: var(--micro);
+      color: var(--muted);
+    }
+    .pill{
+      border: 1px solid var(--hairline);
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--fg);
+      background: rgba(0,0,0,.02);
+    }
+    .iconbtn{
+      width: 34px; height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--hairline);
+      display: grid;
+      place-items: center;
+      color: var(--fg);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .iconbtn:hover{ background: rgba(0,0,0,.03); transform: translateY(-1px); }
+    .iconbtn:active{ transform: translateY(0px); }
+
+    /* Modal */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 100;
+    }
+    .modal[aria-hidden="false"]{ display: block; }
+
+    .modal__backdrop{
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.42);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity .18s ease;
+    }
+    .modal[aria-hidden="false"] .modal__backdrop{ opacity: 1; }
+
+    .modal__panel{
+      position:absolute;
+      
+      left:50%; top:50%;
+      width: min(980px, calc(100vw - 40px));
+      max-height: calc(100vh - 40px);
+      border-radius: 16px;
+      position: absolute;
+            overflow: hidden;
+      background: #fff;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      transform: translate(-50%, -50%) scale(.98);
+      opacity: 0;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .modal[aria-hidden="false"] .modal__panel{
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .modal__grid{
+      display: grid;
+      grid-template-columns: 1.4fr .9fr;
+      height: 100%;
+      min-height: 0;
+    }
+    .modal__media{ background: #f0f0f0; }
+    .modal__media img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* show full image inside modal */
+      background: #f5f5f5;
+    }
+    .modal__content{
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .modal__content{
+      min-height: 0;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal__top{
+      display:flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+    }
+    .modal__title{
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .modal__meta{
+      font-size: var(--micro);
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .modal__desc{
+      font-size: var(--micro);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .modal__close{
+      width: 34px; height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--hairline);
+      display:grid;
+      place-items:center;
+    }
+    .modal__close{
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    @media (max-width: 980px){
+      .view-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hero__meta{ grid-template-columns: 1fr; }
+      .hero__metaRight{ justify-self: start; max-width: 46ch; }
+      .modal__grid{ grid-template-columns: 1fr; }
+      .modal__media{ aspect-ratio: 16 / 10; }
+    }
+    @media (max-width: 700px){
+      .modal__panel{ top: 20px; transform: translate(-50%, -0%) scale(.98); }
+      .modal[aria-hidden="false"] .modal__panel{ transform: translate(-50%, 0) scale(1); }
+
+      .view-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tabs{ gap: 14px; }
+      .row{ grid-template-columns: 120px 1fr; }
+      .row .card{ width: 120px; }
+      .view-feed{ grid-template-columns: repeat(6, 1fr); }
+      .feed-item{ grid-column: span 6; }
+      .feed-item.is-wide{ grid-column: span 6; }
+      .feed-item.is-hero{ grid-column: span 6; aspect-ratio: 16/10; }
+    }
+  
+    .row__status{
+      font-size: 11px;
+      color: rgba(11,11,11,.45);
+      margin-top: 4px;
+    }
+    .modal__status{
+      font-size: 11px;
+      color: rgba(11,11,11,.45);
+      margin-top: 2px;
+    }
+    .modal__features{
+      margin: 8px 0 0;
+      padding-left: 16px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .modal__features li{ margin-bottom: 4px; }
+    .modal__features:empty{ display:none; }
+
+    @media (max-width: 520px){
+      .controls{
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .tabs{
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="topnav">
+    <div class="topnav__row">
+      <div class="nav-left">
+        <a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
+      </div>
+
+      <div class="nav-center">Creative Studio</div>
+
+      <!-- Mobile toggle -->
+<button class="nav-toggle" type="button"
+aria-label="Open menu"
+aria-expanded="false"
+aria-controls="navMenu">
+<span aria-hidden="true"></span>
+</button>
+
+<!-- Desktop nav (unchanged) -->
+<div class="nav-right">
+<nav class="nav-tabs" aria-label="Primary">
+<a class="nav-link" href="index.html">Home</a>
+<a class="nav-link" href="services.html">Services</a>
+<a class="nav-link" href="photography.html">Photography</a>
+<a class="nav-link" href="webportfolio.html">Web</a>
+<a class="nav-link" href="graphics.html" aria-current="page">Graphics</a>
+</nav>
+
+<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
+<span class="dot" aria-hidden="true"></span>
+</div>
+
+<!-- Mobile drawer menu -->
+<div class="nav-drawer" id="navMenu" data-open="false">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="photography.html">Photography</a>
+<a href="webportfolio.html">Web</a>
+<a href="graphics.html">Graphics</a>
+
+<div class="divider" role="separator" aria-hidden="true"></div>
+
+<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
+</div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" aria-label="Hero">
+      <h1 class="hero__title">Maite<sup>°</sup></h1>
+
+      <div class="hero__meta">
+        <div></div>
+        <div class="hero__metaRight">
+          A selection of graphic work designed to support brand identity, promotions, and storytelling across web and social. Focused on color, form, and visual rhythm rather than literal imagery.        </div>
+      </div>
+
+      <div class="controls" aria-label="Controls">
+        <div class="controls__label">
+          Selected Works<span id="countLabel">(00)</span>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="View tabs">
+          <button class="tab" role="tab" aria-selected="true" data-view="grid">Grid</button>
+          <button class="tab" role="tab" aria-selected="false" data-view="list">List</button>
+          <button class="tab" role="tab" aria-selected="false" data-view="feed">Feed</button>
+          <button class="tab" role="tab" aria-selected="false" data-view="full">Full</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" aria-live="polite" aria-label="Gallery">
+      <div id="galleryRoot"></div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <section class="modal" id="modal" aria-hidden="true" aria-label="Project modal">
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__grid">
+        <div class="modal__media">
+          <img id="modalImg" alt="" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="modal__content">
+          <div class="modal__top">
+            <div>
+              <h2 class="modal__title" id="modalTitle">Project</h2>
+              <div class="modal__meta" id="modalMeta">2025 • Website</div>
+            </div>
+
+            <button class="modal__close" id="modalClose" aria-label="Close">✕</button>
+          </div>
+
+          <div class="modal__desc" id="modalDesc">Placeholder description. Replace with your own project copy.</div>
+          <div class="modal__status" id="modalStatus"></div>
+          <ul class="modal__features" id="modalFeatures"></ul>
+
+          <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;">
+            <span class="pill" id="modalTag1">Design</span>
+            <span class="pill" id="modalTag2">Build</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const works = [
+      {
+        id: 1,
+        title: "Avila Pro Painting Logo",
+        year: "2025",
+        role: "Logo",
+        tags: ["Logo Design", "Procreate, Figma"],
+        img:"./Images/APPLogo.png",
+        desc: "A graphic logo system designed to communicate craftsmanship, structure, and reliability. The simplified silhouette and geometric composition allow the mark to scale across print, digital, and environmental applications, with a color palette that supports versatility and long-term brand consistency.y site designed for a holistic wellness brand, focused on clarity, softness, and intuitive navigation. Most photography shot by Maite Studio. Project reflects initial design and build.",
+        // status: "Original design and build",
+        features: [
+          "Symbolic, geometry-based mark rooted in craftsmanship.",
+          "Flexible color variations for broad application.",
+          "Scalable across print, digital, and environmental use.",
+          "Designed as part of a cohesive brand system."
+        ]
+      },
+      {
+        id: 2,
+        title: "Avila Pro Painting Graphic",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/APPGraphic01.png",
+        desc: "A graphic design element developed as part of Avila Pro Painting’s visual identity system. The composition uses repetition, vertical rhythm, and paint-inspired forms to reference process and craftsmanship while remaining clean and structured. Designed to function as a flexible brand element across print, digital, and environmental applications. Using repeated paint forms and minimal color to introduce texture and visual rhythm. Created as part of a cohesive brand visual language.",
+        // status: "Original design and build",
+        // features: [
+        //   "Integrated e-commerce shop for physical and digital wellness offerings",
+        //   "Clear service pages for classes, private sessions, and retreats",
+        //   "Frequently Asked Questions (FAQ) page to reduce customer friction",
+        //   "Newsletter sign-up to support community building",
+        //   "Editorial blog for educational and seasonal content",
+        //   "Founder-led About page to build trust and credibility",
+        //   "Clear booking and contact pathways",
+        //   "Structured navigation for ease of use",
+        //   "Responsive layout across devices",
+        //   "SEO-friendly structure"
+        // ]
+      },
+      {
+        id: 3,
+        title: "Avila Pro Painting Graphic",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/APPGraphic02.png",
+        desc: "A digital graphic inspired by traditional tear-off flyers commonly used by small businesses. Designed for web and social, the piece references familiar neighborhood advertising while maintaining a clean, modern brand look."
+        // status: "Original design and build",
+        // features: [
+        //   "Integrated e-commerce shop for physical and digital wellness offerings",
+        //   "Clear service pages for classes, private sessions, and retreats",
+        //   "Frequently Asked Questions (FAQ) page to reduce customer friction",
+        //   "Newsletter sign-up to support community building",
+        //   "Editorial blog for educational and seasonal content",
+        //   "Founder-led About page to build trust and credibility",
+        //   "Clear booking and contact pathways",
+        //   "Structured navigation for ease of use",
+        //   "Responsive layout across devices",
+        //   "SEO-friendly structure"
+        // ]
+      },
+      {
+        id: 4,
+        title: "Avila Pro Painting Graphic",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/APPGraphic03.png",
+        desc: "A digital graphic inspired by the shape and texture of a paint tray. Designed to reference the painting process in a subtle, minimal way while supporting Avila Pro Painting’s overall brand look."
+        // status: "Original design and build",
+        // features: [
+        //   "Integrated e-commerce shop for physical and digital wellness offerings",
+        //   "Clear service pages for classes, private sessions, and retreats",
+        //   "Frequently Asked Questions (FAQ) page to reduce customer friction",
+        //   "Newsletter sign-up to support community building",
+        //   "Editorial blog for educational and seasonal content",
+        //   "Founder-led About page to build trust and credibility",
+        //   "Clear booking and contact pathways",
+        //   "Structured navigation for ease of use",
+        //   "Responsive layout across devices",
+        //   "SEO-friendly structure"
+        // ]
+      },
+      {
+        id: 5,
+        title: "Crystal Conscience Logo",
+        year: "2024",
+        role: "Logo",
+        tags: ["Logo Design", "Adobe InDesign"],
+        img:"./Images/CCLogo.png",
+        desc: "The Crystal Compliance logo is made up of soft, flowing shapes inspired by nature, movement, and sound. At its core is an organic form paired with curved elements that subtly echo the rhythm of sound waves, reflecting the role of sound healing within the practice. The natural lines and gentle motion of the logo are meant to feel calming and intuitive, mirroring the values behind Crystal Compliance. The design represents a commitment to Ayurveda, sound healing, sustainability, and holistic living, without feeling rigid or overly symbolic. Overall, the logo was created to feel peaceful, balanced, and adaptable — a visual expression of a wellness practice rooted in intention, care, and mindful living.",
+        // status: "Updated by client post-launch",
+        // features: [
+        //   "Event highlights and upcoming shows",
+        //   "Book an Event CTA/section",
+        //   "Menu information and drink specials",
+        //   "Happy Hour details with pricing",
+        //   "Gallery showcasing atmosphere and vibe",
+        //   "Email newsletter sign-up",
+        //   "Social media linking and feed highlights",
+        //   "Clear navigation for menu, events, and gallery",
+        //   "Contact info and hours easily accessible",
+        //   "SEO-friendly structure"
+        // ]
+      },
+      {
+        id: 6,
+        title: "Crystal Conscience Graphics",
+        year: "2024",
+        role: "Graphic",
+        tags: ["Graphic Design", "Adobe InDesign"],
+        img:"./Images/CCGrahpic01.png",
+        desc: "A set of organic graphic elements created to support Crystal Conscience’s visual language across web and social. Together, these graphics were designed to feel soft, intuitive, and grounded — visual extensions of Crystal Conscience’s focus on sound healing, Ayurveda, sustainability, and holistic living.",
+        // status: "Updated by client post-launch",
+        features: [
+          "The first graphic is inspired by a sound bowl, referencing the practice of sound healing and the calming, grounding experience it creates. Its simple shape and balance are meant to feel quiet, centered, and meditative.",
+          "The second graphic represents holistic living and togetherness, using flowing forms contained within a circular shape. It reflects ideas of balance, connection, sustainability, and the way different elements come together as part of a whole.",
+          "The third graphic is plant-based and nature-inspired, referencing herbs, natural medicine, and the use of plants in holistic wellness practices. Its loose, organic lines are meant to feel gentle and natural rather than structured or rigid."
+      ]
+      },
+      {
+        id: 7,
+        title: "Maite Studio Logo",
+        year: "2023",
+        role: "Logo",
+        tags: ["Logo Design", "Figma", "Maison Neue Bold"],
+        img:"./Images/MSLogo.png",
+        desc: "The Maite Studio logo is a simple, bold wordmark built around the initials M and S. The strong, structured M is paired with a softer, flowing S, creating a balance between precision and creativity. The contrast between sharp angles and curved lines reflects the studio’s approach — combining clear systems with intuitive, expressive design. Minimal by design, the logo is meant to feel flexible and timeless, working across digital spaces, print, and brand applications without distraction. At its core, the mark represents a studio rooted in thoughtful direction, visual clarity, and creative balance.",
+        // status: "Original design and build",
+        // features: [
+        //   "Detailed mobile service descriptions (car wash, detailing, tire & finish touches)",
+        //   "Service pricing and clarity on offerings",
+        //   "On-site mobile service emphasis for customer convenience",
+        //   "Easy contact info for booking (phone and email)",
+        //   "About page establishing brand trust and quality",
+        //   "Consistent navigation structure (Home, Services, About, Contact)",
+        //   "Business hours and service area clearly listed",
+        //   "SEO-friendly structure"
+        // ]
+      },
+      {
+        id: 8,
+        title: "Maite Studio Graphic",
+        year: "2023",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/MSGraphic.png",
+        desc: "A typographic graphic using scale and movement to turn Maite Studio’s name into a bold, expressive visual element.",
+        // status: "Original design and build",
+        // features: [
+        //   "Service overview with clear scope (residential + commercial painting)",
+        //   "Before/after or portfolio visuals showcasing work",
+        //   "About section introducing company and credibility",
+        //   "Strong contact section with phone and inquiry form",
+        //   "Service area and process explained for transparency",
+        //   "Testimonials/social proof to build trust",
+        //   "Consistent navigation structure",
+        //   "Responsive layout across devices",
+        //   "Built with SEO-friendly structure"
+        // ]
+      },
+      {
+        id: 9,
+        title: "Krystal Kartel Graphics",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/KKgraphic01.png",
+        desc: "A series of abstract graphics created to visually represent Krystal Kartel’s different product collections. Each piece uses soft gradients and simple circular forms to reflect energy, intention, and emotional states, rather than literal symbols.",
+        // status: "Updated by client post-launch",
+        features: [
+          "Protection & Grounding (top left): Layered circles and a grounded base shape create a sense of stability, balance, and support — reflecting protection and grounding energy.",
+          "Love & Relationships (top right): Two overlapping forms within a single circle represent connection, partnership, and emotional closeness.",
+          "Abundance & Success (center): A single focal point within an open circle symbolizes growth, focus, and expansion, tying into ideas of abundance and forward movement.",
+          "Intuition & Spiritual Growth (bottom left): Repeating circular layers suggest depth, awareness, and inner exploration, representing intuition and spiritual development.",
+          "Healing & Inner Peace (bottom right): Soft, balanced forms layered within a larger circle create a calm, centered feeling associated with healing and emotional peace."
+        ]
+      },
+      {
+        id: 10,
+        title: "Krystal Kartel Graphic",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Desing", "Figma"],
+        img:"./Images/KKGraphic02.png",
+        desc: "An abstract visual inspired by balance, grounding, and energy — ideas closely tied to stones and crystals. The stacked, rounded shapes create a sense of weight and stability, while the soft gradient background adds warmth and movement.",
+        // status: "Original design and build",
+        // features: [
+        //   "Service overview section with clear presentation of offerings",
+        //   "Simple navigation structure (Home, Services, Contact)",
+        //   "Direct booking prompt / contact callout",
+        //   "About intro establishing personal brand and specialization",
+        //   "Responsive layout for mobile and desktop",
+        //   "Clean, minimalist visual presentation",
+        //   "Footer with contact details and social links"
+        // ]
+      },
+      {
+        id: 11,
+        title: "Krystal Kartel Graphic",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/KKGraphic03.png",
+        desc: "A promotional graphic created for Krystal Kartel’s Shopify banners, designed to highlight seasonal 50% off sales tied to each zodiac sign. Each zodiac season featured its own version of the graphic, using a unique color gradient meant to reflect the energy and aura of that sign.",
+        // status: "Original design and build",
+        // features: [
+        //   "Service overview section with clear presentation of offerings",
+        //   "Simple navigation structure (Home, Services, Contact)",
+        //   "Direct booking prompt / contact callout",
+        //   "About intro establishing personal brand and specialization",
+        //   "Responsive layout for mobile and desktop",
+        //   "Clean, minimalist visual presentation",
+        //   "Footer with contact details and social links"
+        // ]
+      },
+      {
+        id: 12,
+        title: "Krystal Kartel Graphic",
+        year: "2025",
+        role: "Graphic",
+        tags: ["Graphic Design", "Figma"],
+        img:"./Images/KKGraphic04.png",
+        desc: "An abstract banner background designed to support promotions across Krystal Kartel’s website. The organic, flowing shapes and bright green tone were created to match the personality of the brand — playful, energetic, and rooted in nature.",
+        // status: "Original design and build",
+        // features: [
+        //   "Service overview section with clear presentation of offerings",
+        //   "Simple navigation structure (Home, Services, Contact)",
+        //   "Direct booking prompt / contact callout",
+        //   "About intro establishing personal brand and specialization",
+        //   "Responsive layout for mobile and desktop",
+        //   "Clean, minimalist visual presentation",
+        //   "Footer with contact details and social links"
+        // ]
+      }
+    ];
+
+    const root = document.getElementById("galleryRoot");
+    const countLabel = document.getElementById("countLabel");
+
+    const modal = document.getElementById("modal");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalClose = document.getElementById("modalClose");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMeta = document.getElementById("modalMeta");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalTag1 = document.getElementById("modalTag1");
+    const modalTag2 = document.getElementById("modalTag2");
+
+    const modalStatus = document.getElementById("modalStatus");
+    const modalFeatures = document.getElementById("modalFeatures");
+
+    countLabel.textContent = `(${String(works.length).padStart(2,"0")})`;
+
+    let currentView = "grid";
+    let currentIndex = 0;
+
+    function openModal(item){
+      modalImg.src = item.img;
+      modalImg.alt = item.title || "";
+      modalTitle.textContent = item.title || "Project";
+      modalMeta.textContent = `${item.year || ""} • ${item.role || ""}`.trim();
+      modalDesc.textContent = item.desc || "";
+      modalStatus.textContent = item.status || "";
+      if(item.features && Array.isArray(item.features) && item.features.length){
+        modalFeatures.innerHTML = item.features.map(f => `<li>${f}</li>`).join("");
+      } else {
+        modalFeatures.innerHTML = "";
+      }
+      modalTag1.textContent = item.tags?.[0] || "Design";
+      modalTag2.textContent = item.tags?.[1] || "Build";
+
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal(){
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+      modalImg.src = "";
+    }
+
+    modalBackdrop.addEventListener("click", closeModal);
+    modalClose.addEventListener("click", closeModal);
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
+    });
+
+    // tabs (scoped to gallery only)
+    document.querySelectorAll('.tabs .tab').forEach(btn => {
+      btn.addEventListener("click", () => setView(btn.dataset.view));
+    });
+
+    function setView(view){
+      currentView = view;
+      document.querySelectorAll('.tabs .tab').forEach(t => {
+        t.setAttribute("aria-selected", String(t.dataset.view === view));
+      });
+      render();
+    }
+
+    function cardHTML(item){
+      return `
+        <div class="card" tabindex="0" data-id="${item.id}">
+          <img class="card__img" src="${item.img}" alt="${item.title || ""}" loading="lazy" decoding="async">
+        </div>
+      `;
+    }
+
+    function render(){
+      if(currentView === "grid"){
+        root.innerHTML = `<div class="view-grid">${works.map(cardHTML).join("")}</div>`;
+      }
+
+      if(currentView === "list"){
+        root.innerHTML = `
+          <div class="view-list">
+            ${works.map(item => `
+              <div class="row">
+                <div class="card" tabindex="0" data-id="${item.id}">
+                  <img class="card__img" src="${item.img}" alt="${item.title || ""}" loading="lazy" decoding="async">
+                </div>
+                <div>
+                  <div class="row__info">
+                    <div class="row__title">${item.title}</div>
+                    <div class="row__meta">
+                      <span>${item.year}</span>
+                      <span>${item.role}</span>
+                    </div>
+                  </div>
+                  <div class="row__desc">${item.desc || ""}</div>
+${item.status ? `<div class="row__status">${item.status}</div>` : ""}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if(currentView === "feed"){
+        root.innerHTML = `
+          <div class="view-feed">
+            ${works.map((item, i) => {
+              const cls =
+                i === 0 ? "feed-item is-hero" :
+                i % 7 === 0 ? "feed-item is-wide" :
+                i % 5 === 0 ? "feed-item is-tall" :
+                "feed-item";
+              return `
+                <div>
+                  <div class="card ${cls}" tabindex="0" data-id="${item.id}">
+                    <img class="card__img" src="${item.img}" alt="${item.title || ""}" loading="lazy" decoding="async">
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }
+
+      if(currentView === "full"){
+        const item = works[currentIndex];
+        root.innerHTML = `
+          <div class="view-full">
+            <div class="fullstage">
+              <img src="${item.img}" alt="${item.title || ""}" loading="lazy" decoding="async">
+            </div>
+            <div class="fullbar">
+              <div>
+                <span class="pill">${item.title}</span>
+              </div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button class="iconbtn" id="prevBtn" aria-label="Previous">‹</button>
+                <button class="iconbtn" id="nextBtn" aria-label="Next">›</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          currentIndex = (currentIndex - 1 + works.length) % works.length;
+          render();
+        });
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % works.length;
+          render();
+        });
+      }
+
+      root.querySelectorAll("[data-id]").forEach(el => {
+        const id = Number(el.dataset.id);
+        const item = works.find(w => w.id === id);
+        el.addEventListener("click", () => openModal(item));
+        el.addEventListener("keydown", (e) => {
+          if(e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openModal(item);
+          }
+        });
+      });
+    }
+
+    render();
+  </script>
+  <script>
+  const btn = document.querySelector(".nav-toggle");
+  const menu = document.getElementById("navMenu");
+
+  if (btn && menu) {
+    const setOpen = (open) => {
+      menu.dataset.open = open ? "true" : "false";
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+
+    btn.addEventListener("click", () => {
+      const isOpen = menu.dataset.open === "true";
+      setOpen(!isOpen);
+    });
+
+    // close when a link is clicked
+    menu.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => setOpen(false));
+    });
+
+    // close on escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+  }
+</script>
+
+</body>
+</html>

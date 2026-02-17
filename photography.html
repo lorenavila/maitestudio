@@ -1,0 +1,958 @@
+<!-- =========================
+photography.html
+========================= -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maite Studio — Photography</title>
+
+<style>
+html, body { overflow-x: hidden; }
+@font-face{
+font-family:"Maison Neue";
+src:url("./Maison Neue/MaisonNeue-Book.woff2") format("woff2"),
+    url("./Maison Neue/MaisonNeue-Book.woff") format("woff");
+font-weight:400;
+font-style:normal;
+font-display:swap;
+}
+@font-face{
+font-family:"Maison Neue";
+src:url("./Maison Neue/MaisonNeue-Medium.woff2") format("woff2"),
+    url("./Maison Neue/MaisonNeue-Medium.woff") format("woff");
+font-weight:500;
+font-style:normal;
+font-display:swap;
+}
+
+:root{
+--bg:#fff;
+--fg:#0b0b0b;
+--muted:rgba(11,11,11,.55);
+--hair:rgba(11,11,11,.12);
+--hairline: rgba(11,11,11,.12);
+
+--padX: clamp(16px, 2.8vw, 28px);
+--padY: clamp(14px, 2.2vw, 24px);
+
+--gap: 10px;
+--navH: 54px;
+
+--micro: 12px;
+--body: 14px;
+
+--radius: 14px;
+}
+
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+margin: 0;
+background: var(--bg);
+color: var(--fg);
+font-family: "Maison Neue", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+letter-spacing: -0.01em;
+-webkit-font-smoothing: antialiased;
+text-rendering: geometricPrecision;
+}
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; color: inherit; background: transparent; border: 0; padding: 0; cursor: pointer; }
+
+.page{
+min-height: 100%;
+padding: var(--padY) var(--padX) 64px;
+}
+
+/* ---------- TOP NAV (same as index) ---------- */
+.topnav{
+position:sticky;
+top:0;
+z-index:100;
+height: var(--navH);
+display:flex;
+align-items:center;
+padding: 0 var(--padX);
+background: rgba(255,255,255,.86);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+}
+.topnav__row{
+width:100%;
+display:grid;
+grid-template-columns: 1fr auto 1fr;
+align-items:center;
+gap: 16px;
+}
+.nav-left{
+justify-self:start;
+font-size: var(--micro);
+color: var(--fg);
+}
+.nav-center{
+justify-self:center;
+font-size: var(--micro);
+color: var(--muted);
+}
+.nav-right{
+justify-self:end;
+display:flex;
+align-items:center;
+gap: 16px;
+font-size: var(--micro);
+color: var(--fg);
+white-space: nowrap;
+}
+.nav-tabs{
+display:flex;
+gap: 14px;
+align-items:center;
+}
+.nav-link{
+position:relative;
+color: var(--fg);
+opacity:.9;
+padding: 4px 0;
+}
+.nav-link[aria-current="page"]{ opacity:1; }
+.nav-link[aria-current="page"]::after{
+content:"";
+position:absolute;
+left:0;
+right:0;
+bottom:-6px;
+height:1px;
+background: var(--fg);
+opacity:.6;
+}
+.dot{
+width: 6px;
+height: 6px;
+border-radius: 999px;
+background: #2b59ff;
+display:inline-block;
+margin-left: 6px;
+}
+
+/* Prevent any accidental horizontal scroll */
+html, body { overflow-x: hidden; }
+
+/* --- Mobile nav toggle + drawer --- */
+.nav-toggle{
+display:none;
+width: 38px;
+height: 38px;
+border: 1px solid var(--hair);
+background: rgba(255,255,255,.8);
+border-radius: 999px;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.nav-toggle span{
+display:block;
+width: 16px;
+height: 1px;
+background: var(--fg);
+position: relative;
+}
+.nav-toggle span::before,
+.nav-toggle span::after{
+content:"";
+position:absolute;
+left:0;
+width:16px;
+height:1px;
+background: var(--fg);
+}
+.nav-toggle span::before{ top:-5px; }
+.nav-toggle span::after{ top: 5px; }
+
+.nav-drawer{
+display:none;
+}
+
+/* Mobile breakpoint (match your mosaic breakpoint) */
+@media (max-width: 820px){
+.topnav__row{
+grid-template-columns: 1fr auto; /* left + toggle */
+}
+.nav-center{ display:none; }
+
+/* hide desktop right side so it can’t force width */
+.nav-right{ display:none; }
+
+.nav-toggle{ display:flex; justify-self:end; }
+
+.nav-drawer{
+display:block;
+position: absolute;
+left: 0;
+right: 0;
+top: var(--navH);
+background: rgba(255,255,255,.96);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border-top: 1px solid var(--hair);
+padding: 14px var(--padX) 18px;
+transform: translateY(-8px);
+opacity: 0;
+pointer-events: none;
+transition: opacity .18s ease, transform .18s ease;
+}
+
+.nav-drawer[data-open="true"]{
+transform: translateY(0);
+opacity: 1;
+pointer-events: auto;
+}
+
+.nav-drawer a{
+display:block;
+padding: 10px 0;
+font-size: var(--micro);
+}
+
+.nav-drawer .divider{
+height:1px;
+background: var(--hair);
+margin: 10px 0;
+}
+}
+
+/* ---------- HERO ---------- */
+.hero{ padding: 18px 0 10px; }
+.hero__title{
+font-size: clamp(44px, 6vw, 84px);
+font-weight: 500;
+letter-spacing: -0.04em;
+line-height: 0.92;
+margin: 12px 0 6px;
+}
+.hero__title sup{
+font-size: 0.36em;
+top: -0.85em;
+position: relative;
+letter-spacing: -0.02em;
+}
+.hero__meta{
+display: grid;
+grid-template-columns: 1fr minmax(220px, 360px);
+gap: 18px;
+align-items: start;
+margin-top: 6px;
+padding-bottom: 12px;
+}
+.hero__metaRight{
+font-size: var(--micro);
+line-height: 1.35;
+color: var(--muted);
+justify-self: end;
+text-align: left;
+}
+
+/* Controls row */
+.controls{
+display: grid;
+grid-template-columns: 1fr auto;
+align-items: center;
+gap: 16px;
+padding: 12px 0 14px;
+border-top: 1px solid var(--hairline);
+border-bottom: 1px solid var(--hairline);
+margin-top: 10px;
+}
+.controls__label{
+font-size: var(--body);
+color: var(--fg);
+letter-spacing: -0.01em;
+}
+.controls__label span{
+color: var(--muted);
+font-size: var(--micro);
+margin-left: 6px;
+position: relative;
+top: -1px;
+}
+
+.tabs{
+display: flex;
+gap: 18px;
+align-items: center;
+justify-content: flex-end;
+font-size: var(--micro);
+color: var(--muted);
+user-select: none;
+}
+
+/* These .tab buttons are ONLY for gallery view modes */
+.tabs .tab{
+position: relative;
+padding: 6px 2px;
+transition: color .18s ease;
+}
+.tabs .tab[aria-selected="true"]{ color: var(--fg); }
+.tabs .tab[aria-selected="true"]::after{
+content:"";
+position:absolute;
+left: 0; right: 0; bottom: 0px;
+height: 1px;
+background: var(--fg);
+opacity: .45;
+}
+
+/* Gallery container */
+.gallery{ padding-top: 14px; }
+
+/* Common card */
+.card{
+border-radius: var(--radius);
+overflow: hidden;
+background: #f3f3f3;
+position: relative;
+cursor: pointer;
+outline: none;
+transform: translateZ(0);
+}
+.card:focus-visible{ box-shadow: 0 0 0 2px rgba(43,89,255,.35); }
+.card__img{
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+transform: scale(1.001);
+transition: transform .25s ease;
+}
+.card:hover .card__img{ transform: scale(1.02); }
+
+/* GRID view */
+.view-grid{
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 10px;
+}
+.view-grid .card{ aspect-ratio: 1 / 1; }
+
+/* LIST view */
+.view-list{
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+.row{
+display: grid;
+grid-template-columns: 160px 1fr;
+gap: 16px;
+align-items: center;
+padding: 10px 0;
+border-bottom: 1px solid var(--hairline);
+}
+.row:last-child{ border-bottom: 0; }
+.row .card{
+width: 160px;
+aspect-ratio: 1 / 1;
+border-radius: 8px;
+}
+.row__info{
+display: grid;
+grid-template-columns: 1fr auto;
+gap: 12px;
+align-items: baseline;
+}
+.row__title{
+font-size: 14px;
+font-weight: 500;
+letter-spacing: -0.015em;
+line-height: 1.2;
+}
+.row__meta{
+font-size: var(--micro);
+color: var(--muted);
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+justify-content: flex-end;
+}
+.row__desc{
+margin-top: 6px;
+font-size: var(--micro);
+line-height: 1.35;
+color: var(--muted);
+max-width: 70ch;
+}
+
+/* FEED view */
+.view-feed{
+display: grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 10px;
+align-items: start;
+}
+.feed-item{ grid-column: span 4; aspect-ratio: 4 / 5; }
+.feed-item.is-wide{ grid-column: span 8; aspect-ratio: 16 / 9; }
+.feed-item.is-tall{ grid-column: span 4; aspect-ratio: 3 / 4; }
+.feed-item.is-hero{ grid-column: span 12; aspect-ratio: 21 / 9; border-radius: 12px; }
+
+.feed-caption{
+margin-top: 8px;
+font-size: var(--micro);
+color: var(--muted);
+display: flex;
+justify-content: space-between;
+gap: 12px;
+}
+
+/* FULL view */
+.view-full{
+display: grid;
+grid-template-columns: 1fr;
+gap: 12px;
+padding-top: 6px;
+}
+.fullstage{
+position: relative;
+border-radius: 14px;
+overflow: hidden;
+background: #f5f5f5;
+max-height: 70vh;
+}
+.fullstage img{
+width: 100%;
+height: 100%;
+object-fit: contain;
+background: #f5f5f5;
+}
+.fullbar{
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 12px;
+font-size: var(--micro);
+color: var(--muted);
+}
+.fullbar__left{ display:flex; gap:10px; align-items:center; }
+.pill{
+border: 1px solid var(--hairline);
+padding: 6px 10px;
+border-radius: 999px;
+color: var(--fg);
+background: rgba(0,0,0,.02);
+}
+.fullbar__right{ display:flex; gap:8px; align-items:center; }
+.iconbtn{
+width: 34px; height: 34px;
+border-radius: 999px;
+border: 1px solid var(--hairline);
+display: grid;
+place-items: center;
+color: var(--fg);
+transition: transform .12s ease, background .12s ease;
+}
+.iconbtn:hover{ background: rgba(0,0,0,.03); transform: translateY(-1px); }
+.iconbtn:active{ transform: translateY(0px); }
+
+/* Modal */
+.modal{
+position: fixed;
+inset: 0;
+display: none;
+z-index: 100;
+}
+.modal[aria-hidden="false"]{ display: block; }
+
+.modal__backdrop{
+position:absolute; inset:0;
+background: rgba(0,0,0,.42);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+opacity: 0;
+transition: opacity .18s ease;
+}
+.modal[aria-hidden="false"] .modal__backdrop{ opacity: 1; }
+
+.modal__panel{
+position:absolute;
+left:50%; top:50%;
+width: min(980px, calc(100vw - 40px));
+border-radius: 16px;
+overflow: hidden;
+background: #fff;
+box-shadow: 0 20px 60px rgba(0,0,0,.25);
+transform: translate(-50%, -50%) scale(.98);
+opacity: 0;
+transition: opacity .18s ease, transform .18s ease;
+}
+.modal[aria-hidden="false"] .modal__panel{
+opacity: 1;
+transform: translate(-50%, -50%) scale(1);
+}
+.modal__grid{
+display: grid;
+grid-template-columns: 1.4fr .9fr;
+min-height: 520px;
+}
+.modal__media{ background: #f0f0f0; }
+.modal__media img{
+width: 100%;
+height: 100%;
+object-fit: contain;
+background: #f5f5f5;
+}
+.modal__content{
+padding: 18px 18px 16px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.modal__top{
+display:flex;
+justify-content: space-between;
+align-items: start;
+gap: 12px;
+}
+.modal__title{
+font-size: 16px;
+font-weight: 500;
+letter-spacing: -0.02em;
+line-height: 1.2;
+margin: 0;
+}
+.modal__meta{
+font-size: var(--micro);
+color: var(--muted);
+line-height: 1.4;
+}
+.modal__desc{
+font-size: var(--micro);
+color: var(--muted);
+line-height: 1.5;
+}
+.modal__close{
+width: 34px; height: 34px;
+border-radius: 999px;
+border: 1px solid var(--hairline);
+display:grid;
+place-items:center;
+}
+
+@media (max-width: 980px){
+.view-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hero__meta{ grid-template-columns: 1fr; }
+.hero__metaRight{ justify-self: start; max-width: 46ch; }
+.modal__grid{ grid-template-columns: 1fr; }
+.modal__media{ aspect-ratio: 16 / 10; }
+}
+@media (max-width: 700px){
+.view-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tabs{ gap: 14px; }
+.row{ grid-template-columns: 120px 1fr; }
+.row .card{ width: 120px; }
+.view-feed{ grid-template-columns: repeat(6, 1fr); }
+.feed-item{ grid-column: span 6; }
+.feed-item.is-wide{ grid-column: span 6; }
+.feed-item.is-hero{ grid-column: span 6; aspect-ratio: 16/10; }
+}
+
+/* === Modal viewport-safe fix (keeps X visible + centers on small screens) === */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+}
+.modal.is-open{ display: flex; align-items: center; justify-content: center; }
+.modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.42);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1;
+}
+.modal__panel{
+  position: relative;
+  z-index: 2;
+  width: min(980px, calc(100vw - 40px));
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.modal__close{
+  position: absolute !important;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+}
+.modal__grid{
+  height: 100%;
+  min-height: 0;
+}
+/* Let text scroll inside the modal instead of pushing it off-screen */
+.modal__content{
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+/* Keep media from forcing the modal taller than viewport */
+.modal__media,
+.modal__imgwrap{
+  min-height: 0;
+}
+.modal__media img,
+#modalImg{
+  max-height: 52vh;
+  width: 100%;
+  object-fit: contain;
+}
+@media (max-width: 820px){
+  .modal__panel{ width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 24px); }
+  .modal__media img, #modalImg{ max-height: 36vh; }
+}
+
+</style>
+</head>
+
+<body>
+<header class="topnav">
+<div class="topnav__row">
+<div class="nav-left">
+  <a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
+</div>
+
+<div class="nav-center">Creative Studio</div>
+
+<!-- Mobile toggle -->
+<button class="nav-toggle" type="button"
+aria-label="Open menu"
+aria-expanded="false"
+aria-controls="navMenu">
+<span aria-hidden="true"></span>
+</button>
+
+<!-- Desktop nav (unchanged) -->
+<div class="nav-right">
+<nav class="nav-tabs" aria-label="Primary">
+<a class="nav-link" href="index.html">Home</a>
+<a class="nav-link" href="services.html">Services</a>
+<a class="nav-link" href="photography.html" aria-current="page">Photography</a>
+<a class="nav-link" href="webportfolio.html">Web</a>
+<a class="nav-link" href="graphics.html">Graphics</a>
+
+</nav>
+
+<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
+<span class="dot" aria-hidden="true"></span>
+</div>
+
+<!-- Mobile drawer menu -->
+<div class="nav-drawer" id="navMenu" data-open="false">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="photography.html">Photography</a>
+<a href="webportfolio.html">Web</a>
+<a href="graphics.html">Graphics</a>
+
+<div class="divider" role="separator" aria-hidden="true"></div>
+
+<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
+</div>
+</div>
+</header>
+
+<main class="page">
+<section class="hero" aria-label="Hero">
+<h1 class="hero__title">Maite<sup>°</sup></h1>
+
+<div class="hero__meta">
+  <div></div>
+  <div class="hero__metaRight">
+    Photography & brand content — captured with a calm editorial eye.
+  </div>
+</div>
+
+<div class="controls" aria-label="Controls">
+  <div class="controls__label">
+    Selected Works<span id="countLabel">(00)</span>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="View tabs">
+    <button class="tab" role="tab" aria-selected="true" data-view="grid">Grid</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="list">List</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="feed">Feed</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="full">Full</button>
+  </div>
+</div>
+</section>
+
+<section class="gallery" aria-live="polite" aria-label="Gallery">
+<div id="galleryRoot"></div>
+</section>
+</main>
+
+<!-- Modal -->
+<section class="modal" id="modal" aria-hidden="true" aria-label="Project modal">
+<div class="modal__backdrop" id="modalBackdrop"></div>
+
+<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal__grid">
+  <div class="modal__media">
+    <img id="modalImg" alt="" />
+  </div>
+
+  <div class="modal__content">
+    <div class="modal__top">
+      <div>
+        <h2 class="modal__title" id="modalTitle">Project</h2>
+        <div class="modal__meta" id="modalMeta">2026 • Brand Content</div>
+      </div>
+
+      <button class="modal__close" id="modalClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal__desc" id="modalDesc">
+      Placeholder description. Replace with your own project copy.
+    </div>
+
+    <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;">
+      <span class="pill" id="modalTag1">Photography</span>
+      <span class="pill" id="modalTag2">Fujifilm XT2</span>
+      <!-- <span class="pill" id="modalTag3">More</span> -->
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<script>
+// Your “OG method” list (auto-mapped into objects)
+const works = [
+"Stretch01.jpg",
+"Stretch03.jpg",
+"Stretch04.JPG",
+"Adrianna01.JPG",
+"Mat01.JPG",
+"Meditation01.JPG",
+"Paolo01.JPG",
+"Sound01.jpg",
+"Sound02.JPG",
+"Sound03.JPG",
+"Sound04.jpg",
+"Sound05.jpg",
+"Sound06.JPG",
+"Sound07.JPG",
+"Sound09.JPG",
+"Sound10.jpg",
+"Sound11.jpg",
+"Sound12.JPG",
+"Sound13.JPG",
+"Sound14.jpg",
+"Sound16.JPG",
+"Sound17.jpg",
+"Sound18.jpg",
+"Sound21.JPG",
+"Sound22.JPG",
+"Stretch05.jpg",
+"Stretch06.jpg"
+].map((file, i) => ({
+id: i + 1,
+title: "Crystal Conscience @ Montauk OM",
+year: "2026",
+role: "Brand Content",
+tags: ["Photography", "Fujifilm XT2"],
+img: `./Images/CC/${file}`
+}));
+
+const root = document.getElementById("galleryRoot");
+const countLabel = document.getElementById("countLabel");
+
+const modal = document.getElementById("modal");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalClose = document.getElementById("modalClose");
+const modalImg = document.getElementById("modalImg");
+const modalTitle = document.getElementById("modalTitle");
+const modalMeta = document.getElementById("modalMeta");
+const modalDesc = document.getElementById("modalDesc");
+const modalTag1 = document.getElementById("modalTag1");
+const modalTag2 = document.getElementById("modalTag2");
+const modalTag3 = document.getElementById("modalTag3");
+
+countLabel.textContent = `(${String(works.length).padStart(2,"0")})`;
+
+let currentView = "grid";
+let currentIndex = 0;
+
+function openModal(item){
+modalImg.src = item.img;
+modalImg.alt = item.title || "";
+modalTitle.textContent = item.title || "Project";
+modalMeta.textContent = `${item.year || ""} • ${item.role || ""}`.trim();
+modalDesc.textContent = "";
+modalTag1.textContent = item.tags?.[0] || "Photography";
+modalTag2.textContent = item.tags?.[1] || "Fujifilm XT2";
+// modalTag3.textContent = item.tags?.[2] || "More";
+
+modal.setAttribute("aria-hidden","false");
+document.body.style.overflow = "hidden";
+}
+function closeModal(){
+modal.setAttribute("aria-hidden","true");
+document.body.style.overflow = "";
+modalImg.src = "";
+}
+
+modalBackdrop.addEventListener("click", closeModal);
+modalClose.addEventListener("click", closeModal);
+window.addEventListener("keydown", (e) => {
+if(e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
+});
+
+// tabs (scoped so nav never conflicts)
+document.querySelectorAll('.tabs .tab').forEach(btn => {
+btn.addEventListener("click", () => setView(btn.dataset.view));
+});
+
+function setView(view){
+currentView = view;
+document.querySelectorAll('.tabs .tab').forEach(t => {
+  t.setAttribute("aria-selected", String(t.dataset.view === view));
+});
+render();
+}
+
+function cardHTML(item){
+return `
+  <div class="card" tabindex="0" data-id="${item.id}">
+    <img class="card__img" src="${item.img}" alt="">
+  </div>
+`;
+}
+
+function render(){
+if(currentView === "grid"){
+  root.innerHTML = `<div class="view-grid">${works.map(cardHTML).join("")}</div>`;
+}
+
+if(currentView === "list"){
+  root.innerHTML = `
+    <div class="view-list">
+      ${works.map(item => `
+        <div class="row">
+          <div class="card" tabindex="0" data-id="${item.id}">
+            <img class="card__img" src="${item.img}" alt="">
+          </div>
+          <div>
+            <div class="row__info">
+              <div class="row__title">${item.title}</div>
+              <div class="row__meta">
+                <span>${item.year}</span>
+                <span>${item.role}</span>
+              </div>
+            </div>
+            <div class="row__desc"></div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+if(currentView === "feed"){
+  root.innerHTML = `
+    <div class="view-feed">
+      ${works.map((item, i) => {
+        const cls =
+          i === 0 ? "feed-item is-hero" :
+          i % 7 === 0 ? "feed-item is-wide" :
+          i % 5 === 0 ? "feed-item is-tall" :
+          "feed-item";
+        return `
+          <div>
+            <div class="card ${cls}" tabindex="0" data-id="${item.id}">
+              <img class="card__img" src="${item.img}" alt="">
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+if(currentView === "full"){
+  const item = works[currentIndex];
+  root.innerHTML = `
+    <div class="view-full">
+      <div class="fullstage">
+        <img src="${item.img}" alt="">
+      </div>
+      <div class="fullbar">
+        <div class="fullbar__left">
+          <span class="pill">${item.title}</span>
+        </div>
+        <div class="fullbar__right">
+          <button class="iconbtn" id="prevBtn" aria-label="Previous">‹</button>
+          <button class="iconbtn" id="nextBtn" aria-label="Next">›</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + works.length) % works.length;
+    render();
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % works.length;
+    render();
+  });
+}
+
+// click handlers
+root.querySelectorAll("[data-id]").forEach(el => {
+  const id = Number(el.dataset.id);
+  const item = works.find(w => w.id === id);
+  el.addEventListener("click", () => openModal(item));
+  el.addEventListener("keydown", (e) => {
+    if(e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openModal(item);
+    }
+  });
+});
+}
+
+render();
+</script>
+<script>
+  const btn = document.querySelector(".nav-toggle");
+  const menu = document.getElementById("navMenu");
+
+  if (btn && menu) {
+    const setOpen = (open) => {
+      menu.dataset.open = open ? "true" : "false";
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+
+    btn.addEventListener("click", () => {
+      const isOpen = menu.dataset.open === "true";
+      setOpen(!isOpen);
+    });
+
+    // close when a link is clicked
+    menu.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => setOpen(false));
+    });
+
+    // close on escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+  }
+</script>
+
+</body>
+</html>

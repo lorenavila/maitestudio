@@ -4,12 +4,17 @@ index.html
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;900&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
 <title>Maite Studio</title>
+
 
 <style>
 html, body { overflow-x: hidden; }
+
 /* ---------- FONTS (your folder: "Maison Neue") ---------- */
 @font-face{
   font-family:"Maison Neue";
@@ -347,6 +352,57 @@ transition: letter-spacing 5s ease;
 @media (prefers-reduced-motion: reduce){
 .scrunchWord, .scrunchWord .ch{ transition:none !important; animation:none !important; }
 }
+
+/* ---------- Word Physics section (scoped) ---------- */
+.wordPhysics{
+  position: relative;
+  margin: 28px var(--padX) 0;
+  /* border: 1px solid var(--hair);
+  border-radius: 50px; */
+  padding: 18px;
+  overflow: hidden;
+  /* background: #1E1E1E; keep the vibe but only inside this section */
+  min-height: 420px;
+}
+
+.wordPhysics__text{
+  /* we hide the “raw” paragraph because we’ll replace it with spans */
+  color: transparent;
+  user-select: none;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* each split word becomes absolutely positioned */
+.wordPhysics .word{
+  position: absolute;
+  cursor: grab;
+  font-size: 22px;
+  color: #1e1e1e;
+  user-select: none;
+  touch-action: none;
+}
+
+.wordPhysics .word.highlighted{
+  font-weight: 900;
+  /* color: #2b59ff; */
+  border-radius: 6px;
+  padding: 0 4px;
+}
+
+.wordPhysics__stage{
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* canvas doesn’t block grabbing the words */
+}
+
+/* make canvas fit the stage */
+.wordPhysics__stage canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
 </style>
 </head>
 
@@ -421,7 +477,7 @@ aria-controls="navMenu">
     </a>
 
     <a class="tile t5 fade-loop" style="--d: 14s; --delay: -9.1s;" href="photography.html" aria-label="Open photography (tile 5)">
-    <img src="./Images/team01.png" alt="" />
+    <img src="./Images/Team01.png" alt="" />
     </a>
 
     <a class="tile t6 fade-loop" style="--d: 11s; --delay: -4.7s;" href="productdesign.html" aria-label="Open photography (tile 6)">
@@ -434,6 +490,21 @@ aria-controls="navMenu">
 
 <br><br>
 <div class="scrunchWord" id="word">Maite Studio</div>
+
+<section class="wordPhysics" aria-label="About text physics">
+
+  <!-- This is the text that will be split into draggable words -->
+  <div class="wordPhysics__text">
+    <h1>designer. builder. thinker.
+I create digital and physical objects that balance clarity and emotion.
+Maite Studio is an evolving archive of work, process, and intention.
+Everything here is designed with care.</h1>
+  </div>
+
+  <!-- Matter.js will inject the canvas in here -->
+  <div class="wordPhysics__stage" aria-hidden="true"></div>
+</section>
+
 
 <script>
 const btn = document.querySelector(".nav-toggle");
@@ -534,6 +605,118 @@ document.addEventListener("keydown", (e) => {
     }
     loop();
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
+
+<script>
+(() => {
+  const root = document.querySelector(".wordPhysics");
+  if (!root) return;
+
+  const textNode = root.querySelector(".wordPhysics__text");
+  const stage = root.querySelector(".wordPhysics__stage");
+
+  const splitWords = () => {
+    const text = textNode.textContent.trim();
+    const newDomElements = text.split(/\s+/).map((t) => {
+      const highlighted =
+        t.includes(`builder.`) ||
+        t.includes(`thinker`) ||
+        t.includes(`designer`);
+      return `<span class="word ${highlighted ? "highlighted" : ""}">${t}</span>`;
+    });
+    textNode.innerHTML = newDomElements.join(" ");
+  };
+
+  const renderCanvas = () => {
+    const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } = Matter;
+
+    const rect = root.getBoundingClientRect();
+    const canvasSize = { width: rect.width, height: root.offsetHeight };
+
+    const engine = Engine.create();
+
+    // IMPORTANT: render into the stage (not document.body)
+    const render = Render.create({
+      element: stage,
+      engine,
+      options: {
+        width: canvasSize.width,
+        height: canvasSize.height,
+        background: "transparent",
+        wireframes: false
+      }
+    });
+
+    const wallParams = {
+      isStatic: true,
+      render: { fillStyle: "transparent" }
+    };
+
+    const floor = Bodies.rectangle(canvasSize.width / 2, canvasSize.height + 25, canvasSize.width, 50, wallParams);
+    const left  = Bodies.rectangle(-25, canvasSize.height / 2, 50, canvasSize.height, wallParams);
+    const right = Bodies.rectangle(canvasSize.width + 25, canvasSize.height / 2, 50, canvasSize.height, wallParams);
+    const top   = Bodies.rectangle(canvasSize.width / 2, -25, canvasSize.width, 50, wallParams);
+
+    const wordElements = root.querySelectorAll(".word");
+    const wordBodies = [...wordElements].map((elemRef) => {
+      const width = elemRef.offsetWidth;
+      const height = elemRef.offsetHeight;
+
+      return {
+        body: Bodies.rectangle(canvasSize.width / 2, 40, width, height, {
+          restitution: 0.2,
+          friction: 0.2,
+          render: { fillStyle: "transparent" }
+        }),
+        elem: elemRef,
+        w: width,
+        h: height,
+        render() {
+          const { x, y } = this.body.position;
+          this.elem.style.left = `${x - this.w / 2}px`;
+          this.elem.style.top = `${y - this.h / 2}px`;
+          this.elem.style.transform = `rotate(${this.body.angle}rad)`;
+        }
+      };
+    });
+
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+      mouse,
+      constraint: { stiffness: 0.2, render: { visible: false } }
+    });
+
+    World.add(engine.world, [
+      floor, left, right, top,
+      ...wordBodies.map((x) => x.body),
+      mouseConstraint
+    ]);
+
+    Runner.run(engine);
+    Render.run(render);
+
+    (function loop() {
+      wordBodies.forEach((w) => w.render());
+      Engine.update(engine);
+      requestAnimationFrame(loop);
+    })();
+
+    // re-init on resize (simple + reliable)
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => location.reload(), 200);
+    });
+  };
+
+  window.addEventListener("DOMContentLoaded", () => {
+    splitWords();
+    renderCanvas();
+  });
+})();
+</script>
+
 
 </body>
 </html>

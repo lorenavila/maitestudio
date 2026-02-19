@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Maite Studio — Playlist</title>
+
+<style>
+:root{
+  --bg: #ffffff;
+  --fg: #0b0b0b;
+  --hair: rgba(11,11,11,.10);
+}
+
+/* base */
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  overflow-x:hidden;
+}
+
+/* layout */
+.wrap{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 225.75px);
+  gap: .25rem;
+  justify-content: center;
+}
+
+/* vinyl button */
+.vinyl{
+  width: 225px;
+  height: 225px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  place-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* letter state */
+.vinylLetter{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 200px;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  border-radius: 999px;
+  background: #fff;
+  user-select: none;
+}
+
+/* image starts hidden, then swaps in (no transition) */
+.vinyl img{
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  /* filter: drop-shadow(0 20px 30px rgba(0,0,0,.10)); */
+}
+
+/* when “loaded”, image is shown and letter is removed (instant) */
+.vinyl.is-vinyl img{ opacity: 1; }
+.vinyl.is-vinyl .vinylLetter{ display: none; }
+
+/* spin animation (only meaningful once image exists) */
+.vinyl.is-playing img{
+  animation: spin 2.2s linear infinite;
+}
+@keyframes spin{
+  to { transform: rotate(360deg); }
+}
+
+/* responsive */
+@media (max-width: 640px){
+  .grid{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 0 16px;
+  }
+  .vinyl{
+    width: 45vw;
+    height: 45vw;
+  }
+}
+
+/* back arrow (CSS only, with line) */
+.back-arrow{
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 40px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: .6;
+  padding: 0;
+  z-index: 1000;
+}
+
+/* horizontal line */
+.back-arrow::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 22px;
+  height: 1.5px;
+  background: var(--fg);
+  transform: translateY(-50%);
+}
+
+/* arrow head */
+.back-arrow::after{
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-left: 1.5px solid var(--fg);
+  border-bottom: 1.5px solid var(--fg);
+  transform: rotate(45deg);
+  top: 50%;
+  left: 4px;
+  transform-origin: center;
+  translate: 0 -50%;
+}
+
+/* subtle hover */
+.back-arrow:hover{
+  opacity: 1;
+}
+
+
+</style>
+</head>
+
+<body>
+<main class="wrap">
+  <section class="grid" id="grid" aria-label="Playlist vinyl grid">
+    <!-- PLAYLIST (8) -->
+    <button class="vinyl" data-letter="P" data-spotify="https://open.spotify.com/playlist/4So1sUqL2TxZvrvZV3FH1p?si=26881c6b73d34de2">
+      <span class="vinylLetter">P</span>
+      <img src="./Images/sony.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="L" data-spotify="https://open.spotify.com/playlist/5AwDBUGzcFqXq7ONoMGyrq?si=b4cnpN7lSqO9ECP69Ly8jQ">
+      <span class="vinylLetter">L</span>
+      <img src="./Images/atmyaltar.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="A" data-spotify="https://open.spotify.com/playlist/6SCXw7NGSDnIi5mo3Foxch?si=k6JAcEdRTWmeUQP7dgjMkQ">
+      <span class="vinylLetter">L</span>
+      <img src="./Images/parasoñar.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="Y" data-spotify="https://open.spotify.com/playlist/0eFOl726OXzIdE0QBFEBtu?si=-TVkzVw_RduFuTuWmCK0uQ">
+      <span class="vinylLetter">I</span>
+      <img src="./Images/newyorker.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="L" data-spotify="https://open.spotify.com/playlist/6X5O5dBew74GVe7oVcjxnR?si=x9fRZOOMS0eWS7I5NDWL5Q">
+      <span class="vinylLetter">A</span>
+      <img src="./Images/roi.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="I" data-spotify="https://open.spotify.com/playlist/3l8JQFZze3Do9OIoidRk8s?si=luWjiWWKRDacC5U_I600dw">
+      <span class="vinylLetter">S</span>
+      <img src="./Images/fridaynight.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="S" data-spotify="https://open.spotify.com/playlist/3ilIEfVB5Lz7c9tLTYULLL?si=G9in1tXnSum_tcJznL3n3w">
+      <span class="vinylLetter">Y</span>
+      <img src="./Images/coolgirl.png" alt="">
+    </button>
+
+    <button class="vinyl" data-letter="T" data-spotify="https://open.spotify.com/playlist/4XnGaDOdrDVqjhw8kd2iPh?si=8NSwYZONQ1OUBipw_FaSVA8">
+      <span class="vinylLetter">T</span>
+      <img src="./Images/shuffle.png" alt="">
+    </button>
+  </section>
+</main>
+
+<script>
+  const grid = document.getElementById("grid");
+  const vinyls = Array.from(document.querySelectorAll(".vinyl"));
+
+  // 1) On open: show letters for 2.5s, then swap one-by-one each second
+  window.addEventListener("DOMContentLoaded", () => {
+    const startDelayMs = 1000; // 2–3 seconds
+    const stepMs = 150;       // 1 second per letter -> vinyl
+
+    vinyls.forEach((v, i) => {
+      setTimeout(() => {
+        v.classList.add("is-vinyl"); // instant swap, no transition
+      }, startDelayMs + (i * stepMs));
+    });
+  });
+
+  // 2) Click behavior: toggle spin on same vinyl; new vinyl starts spin.
+  //    Spotify opens ONLY when a vinyl is currently spinning (i.e., on start).
+  let currentSpinning = null;
+
+  grid.addEventListener("click", (e) => {
+    const vinyl = e.target.closest(".vinyl");
+    if (!vinyl) return;
+
+    // If it's not swapped to vinyl yet, ignore clicks
+    if (!vinyl.classList.contains("is-vinyl")) return;
+
+    // Same vinyl -> toggle spin
+    if (currentSpinning === vinyl) {
+      vinyl.classList.toggle("is-playing");
+      if (!vinyl.classList.contains("is-playing")) {
+        currentSpinning = null;
+      } else {
+        const url = vinyl.dataset.spotify;
+        if (url) {
+        setTimeout(() => {
+          window.location.href = url;
+        }, 2000);
+      }
+      }
+      return;
+    }
+
+    // Different vinyl -> stop others, start this one
+    vinyls.forEach(v => v.classList.remove("is-playing"));
+    vinyl.classList.add("is-playing");
+    currentSpinning = vinyl;
+
+    const url = vinyl.dataset.spotify;
+    if (url) {
+  setTimeout(() => {
+    window.location.href = url;
+  }, 2000);
+}
+  });
+</script>
+
+<script>
+  function goBack(){
+  if (document.referrer !== "") {
+    window.history.back();
+  } else {
+    window.location.href = "/";
+  }
+}
+
+</script>
+
+<button class="back-arrow" onclick="goBack()" aria-label="Go back"></button>
+
+
+</body>
+</html>

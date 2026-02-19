@@ -13,8 +13,7 @@ index.html
 
 
 <style>
-html, body { overflow-x: hidden;
-cursor: crosshair;}
+html, body { overflow-x: hidden;}
 
 
 :root{
@@ -44,7 +43,7 @@ body{
   text-rendering: geometricPrecision;
   letter-spacing:-0.01em;
 }
-a{ color:inherit; text-decoration:none; }
+a{ color:inherit; text-decoration:none; cursor: pointer; }
 h3{font-size: var(--micro);
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -101,7 +100,7 @@ h3{font-size: var(--micro);
   color: var(--fg);
   opacity:.9;
   padding: 4px 0;
-  cursor: crosshair;
+  cursor: pointer;
 }
 .nav-link[aria-current="page"]{
   opacity:1;
@@ -356,6 +355,25 @@ transition: letter-spacing 5s ease;
   padding-bottom: 220px;
 }
 
+.physicsZone{
+  position: relative;
+  isolation: isolate; /* important for clean layering */
+}
+
+/* Background doodle layer */
+/* .physicsBg{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image: url("Images/code.png");
+  background-repeat: no-repeat;
+  background-position: center 60%;
+  background-size: 900px auto;
+  filter: blur(0.5px);
+} */
+
 /* Hidden source text; we replace it with spans */
 .physicsTextSource{
   color: transparent;
@@ -519,7 +537,7 @@ aria-controls="navMenu">
     </a>
 
     <a class="tile t5 fade-loop" style="--d: 14s; --delay: -9.1s;" href="photography.html" aria-label="Open photography (tile 5)">
-    <img src="./Images/team01.png" alt="" />
+    <img src="./Images/Team01.png" alt="" />
     </a>
 
     <a class="tile t6 fade-loop" style="--d: 11s; --delay: -4.7s;" href="productdesign.html" aria-label="Open photography (tile 6)">
@@ -544,6 +562,9 @@ aria-controls="navMenu">
     Everything here is designed with care.
   </div>
 
+  <div class="physicsBg" aria-hidden="true"></div>
+
+
   <!-- Matter.js canvas gets injected here -->
   <div class="physicsStage" aria-hidden="true"></div>
 
@@ -561,16 +582,17 @@ aria-controls="navMenu">
 
   <!-- Caption text under image (like screenshot) -->
   <p class="featureCaption">
-    I DESIGN WEBSITES, BRAND SYSTEMS, AND VISUAL IDENTITIES WITH A DISTINCT POINT OF VIEW.
-    MY WORK IS ROOTED IN COMMUNITY, and CREATING EXPERIENCES THAT HELP PEOPLE FEEL SEEN AND CONNECTED.
-    NOT EVERYTHING IS MEANT FOR EVERYONE. THE RIGHT WORK FINDS THE RIGHT PEOPLE &lt;3
+    I DESIGN WEBSITES, BRAND SYSTEMS, AND VISUAL IDENTITIES BUILT WITH CARE.
+    MY WORK IS ROOTED IN COMMUNITY, AND IN CREATING EXPERIENCES THAT HELP PEOPLE FEEL SEEN AND CONNECTED.
+    I BELIEVE THE RIGHT WORK CONNECTS WITH THE RIGHT PEOPLE &lt;3
   </p>
+
 
   <!-- Minimal footer (space for words to settle) -->
   <footer class="miniFooter" aria-label="Footer">
     <nav class="miniFooter__nav" aria-label="Footer links">
       <a href="webportfolio.html">WORK</a>
-      <a href="graphics.html">💽</a>
+      <a href="playlist.html">💽</a>
       <a href="mailto:maite.studio@outlook.com">CONTACT</a>
     </nav>
   </footer>

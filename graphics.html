@@ -592,6 +592,25 @@ html, body { overflow-x: hidden; }
       }
     }
 
+    /* Minimal footer with landing space */
+.miniFooter{
+  position: relative;
+  z-index: 2;
+  margin-top: 140px;
+  padding: 40px var(--padX) 60px;
+}
+.miniFooter__nav{
+  display:flex;
+  justify-content:center;
+  gap: 22px;
+  font-size: var(--micro);
+  color: rgba(11,11,11,.45);
+}
+.miniFooter__nav a{
+  pointer-events: auto; /* links clickable */
+  color: inherit;
+}
+
   </style>
 </head>
 
@@ -703,16 +722,162 @@ aria-controls="navMenu">
     </div>
   </section>
 
+  <!-- Minimal footer (space for words to settle) -->
+  <footer class="miniFooter" aria-label="Footer">
+    <nav class="miniFooter__nav" aria-label="Footer links">
+      <a href="webportfolio.html">WORK</a>
+      <a href="graphics.html">💽</a>
+      <a href="mailto:maite.studio@outlook.com">CONTACT</a>
+    </nav>
+  </footer>
+</section>
+
   <script>
     const works = [
       {
         id: 1,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/newyorker01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 2,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/parasoñar01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 3,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/friday01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 4,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/sony01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 5,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/roi01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 6,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/atmyaltar01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 7,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/coolgirl01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 8,
+        title: "Maite Playlist",
+        year: "2026",
+        role: "Graphic",
+        tags: ["Graphic Design", "Procreate"],
+        img:"./Images/shuffle01.png",
+        desc: "A graphic designed for a digital Vinyl cover for the Maite Studio Playlist",
+        // status: "Original design and build",
+        // features: [
+        //   "Symbolic, geometry-based mark rooted in craftsmanship.",
+        //   "Flexible color variations for broad application.",
+        //   "Scalable across print, digital, and environmental use.",
+        //   "Designed as part of a cohesive brand system."
+        // ]
+      },
+
+      {
+        id: 9,
         title: "Avila Pro Painting Logo",
         year: "2025",
         role: "Logo",
         tags: ["Logo Design", "Procreate, Figma"],
         img:"./Images/APPLogo.png",
-        desc: "A graphic logo system designed to communicate craftsmanship, structure, and reliability. The simplified silhouette and geometric composition allow the mark to scale across print, digital, and environmental applications, with a color palette that supports versatility and long-term brand consistency.y site designed for a holistic wellness brand, focused on clarity, softness, and intuitive navigation. Most photography shot by Maite Studio. Project reflects initial design and build.",
+        desc: "A graphic logo system designed to communicate craftsmanship, structure, and reliability. The simplified silhouette and geometric composition allow the mark to scale across print, digital, and environmental applications, with a color palette that supports versatility and long-term brand consistency.",
         // status: "Original design and build",
         features: [
           "Symbolic, geometry-based mark rooted in craftsmanship.",
@@ -722,7 +887,7 @@ aria-controls="navMenu">
         ]
       },
       {
-        id: 2,
+        id: 10,
         title: "Avila Pro Painting Graphic",
         year: "2025",
         role: "Graphic",
@@ -744,7 +909,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 3,
+        id: 11,
         title: "Avila Pro Painting Graphic",
         year: "2025",
         role: "Graphic",
@@ -766,7 +931,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 4,
+        id: 12,
         title: "Avila Pro Painting Graphic",
         year: "2025",
         role: "Graphic",
@@ -788,7 +953,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 5,
+        id: 13,
         title: "Crystal Conscience Logo",
         year: "2024",
         role: "Logo",
@@ -810,7 +975,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 6,
+        id: 14,
         title: "Crystal Conscience Graphics",
         year: "2024",
         role: "Graphic",
@@ -825,7 +990,7 @@ aria-controls="navMenu">
       ]
       },
       {
-        id: 7,
+        id: 15,
         title: "Maite Studio Logo",
         year: "2023",
         role: "Logo",
@@ -845,7 +1010,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 8,
+        id: 16,
         title: "Maite Studio Graphic",
         year: "2023",
         role: "Graphic",
@@ -866,7 +1031,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 9,
+        id: 17,
         title: "Krystal Kartel Graphics",
         year: "2025",
         role: "Graphic",
@@ -883,7 +1048,7 @@ aria-controls="navMenu">
         ]
       },
       {
-        id: 10,
+        id: 18,
         title: "Krystal Kartel Graphic",
         year: "2025",
         role: "Graphic",
@@ -902,7 +1067,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 11,
+        id: 19,
         title: "Krystal Kartel Graphic",
         year: "2025",
         role: "Graphic",
@@ -921,7 +1086,7 @@ aria-controls="navMenu">
         // ]
       },
       {
-        id: 12,
+        id: 20,
         title: "Krystal Kartel Graphic",
         year: "2025",
         role: "Graphic",

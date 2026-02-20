@@ -1,17 +1,16 @@
 <!-- =========================
 index.html
 ========================= -->
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;900&display=swap" rel="stylesheet">
-<meta charset="utf-8" />
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;900&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
 <title>Maite Studio</title>
-
-
 <style>
 html, body { overflow-x: hidden;}
 
@@ -465,140 +464,87 @@ transition: letter-spacing 5s ease;
 
 </style>
 </head>
-
 <body>
 <header class="topnav">
 <div class="topnav__row">
-  <div class="nav-left">
-    <a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
-  </div>
-
-  <div class="nav-center">Creative Studio</div>
-
+<div class="nav-left">
+<a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
+</div>
+<div class="nav-center">Creative Studio</div>
 <!-- Mobile toggle -->
-<button class="nav-toggle" type="button"
-aria-label="Open menu"
-aria-expanded="false"
-aria-controls="navMenu">
+<button aria-controls="navMenu" aria-expanded="false" aria-label="Open menu" class="nav-toggle" type="button">
 <span aria-hidden="true"></span>
 </button>
-
 <!-- Desktop nav (unchanged) -->
 <div class="nav-right">
-<nav class="nav-tabs" aria-label="Primary">
-<a class="nav-link" href="index.html" aria-current="page">Home</a>
-<a class="nav-link" href="services.html">Services</a>
-<a class="nav-link" href="photography.html">Photography</a>
-<a class="nav-link" href="webportfolio.html">Web</a>
-<a class="nav-link" href="graphics.html">Graphics</a>
-<a class="nav-link" href="branding.html">Branding</a>
-</nav>
-
+<nav aria-label="Primary" class="nav-tabs"><a aria-current="page" class="nav-link" href="index.html">Home</a><a class="nav-link" href="services.html">Services</a><a class="nav-link" href="photography.html">Photography</a><a class="nav-link" href="webportfolio.html">Web</a><a class="nav-link" href="graphics.html">Graphics</a><a class="nav-link" href="branding.html">Branding</a><a class="nav-link" href="products.html">Products</a></nav>
 <a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
-<span class="dot" aria-hidden="true"></span>
+<span aria-hidden="true" class="dot"></span>
 </div>
-
 <!-- Mobile drawer menu -->
-<div class="nav-drawer" id="navMenu" data-open="false">
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="photography.html">Photography</a>
-<a href="webportfolio.html">Web</a>
-<a href="graphics.html">Graphics</a>
-<a href="branding.html">Branding</a>
-
-
-<div class="divider" role="separator" aria-hidden="true"></div>
-
-<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
-</div>
-
+<div class="nav-drawer" data-open="false" id="navMenu"><a href="index.html">Home</a><a href="services.html">Services</a><a href="photography.html">Photography</a><a href="webportfolio.html">Web</a><a href="graphics.html">Graphics</a><a href="branding.html">Branding</a><a href="products.html">Products</a><div class="divider"></div><a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a></div>
 </div>
 </header>
-
 <main class="wrap">
 <section aria-label="Index mosaic">
-  <div class="mosaic" aria-label="Mosaic grid">
-    <!-- swap these images whenever -->
-    <a class="tile t1 fade-loop" style="--d: 9s;  --delay: -1.5s;" href="webportfolio.html" aria-label="Open web portfolio (tile 1)">
-    <img src="./Images/lorena01.png" alt="" />
-    </a>
-
-    <a class="tile t2 fade-loop" style="--d: 12s; --delay: -6.2s;" href="graphics.html" aria-label="Open web portfolio (tile 2)">
-    <img src="./Images/lorena02.png" alt="" />
-    </a>
-
-    <a class="tile t4 wordmark" href="services.html" aria-label="Open services">
-    <div class="wordmark__text">Maite<sup>°</sup></div>
-    </a>
-
-    <a class="tile t3 fade-loop" style="--d: 10s; --delay: -3.8s;" href="branding.html" aria-label="Open photography (tile 3)">
-    <img src="./Images/lorena03.png" alt="" />
-    </a>
-
-    <a class="tile t5 fade-loop" style="--d: 14s; --delay: -9.1s;" href="photography.html" aria-label="Open photography (tile 5)">
-    <img src="./Images/team01.png" alt="" />
-    </a>
-
-    <a class="tile t6 fade-loop" style="--d: 11s; --delay: -4.7s;" href="productdesign.html" aria-label="Open photography (tile 6)">
-    <img src="./Images/lorena05.png" alt="" />
-    </a>
-
-  </div>
+<div aria-label="Mosaic grid" class="mosaic">
+<!-- swap these images whenever -->
+<a aria-label="Open web portfolio (tile 1)" class="tile t1 fade-loop" href="webportfolio.html" style="--d: 9s;  --delay: -1.5s;">
+<img alt="" src="./Images/lorena01.png"/>
+</a>
+<a aria-label="Open web portfolio (tile 2)" class="tile t2 fade-loop" href="graphics.html" style="--d: 12s; --delay: -6.2s;">
+<img alt="" src="./Images/lorena02.png"/>
+</a>
+<a aria-label="Open services" class="tile t4 wordmark" href="services.html">
+<div class="wordmark__text">Maite<sup>°</sup></div>
+</a>
+<a aria-label="Open photography (tile 3)" class="tile t3 fade-loop" href="branding.html" style="--d: 10s; --delay: -3.8s;">
+<img alt="" src="./Images/lorena03.png"/>
+</a>
+<a aria-label="Open photography (tile 5)" class="tile t5 fade-loop" href="photography.html" style="--d: 14s; --delay: -9.1s;">
+<img alt="" src="./Images/Team01.png"/>
+</a>
+<a aria-label="Open photography (tile 6)" class="tile t6 fade-loop" href="productdesign.html" style="--d: 11s; --delay: -4.7s;">
+<img alt="" src="./Images/lorena05.png"/>
+</a>
+</div>
 </section>
 </main>
-
-<br><br>
-<center><h3>Hi there, I'm a brand and product designer. My name is</h3></center>
+<br/><br/>
+<center><h3>Hi there, I'm multidisciplinary designer and creator. My name is</h3></center>
 <div class="scrunchWord" id="word">lorena maite</div>
-
-<br><br>
-<section class="physicsZone" id="physicsZone" aria-label="Maite Studio word physics">
-  <!-- Source text (hidden; gets split into draggable words) -->
-  <div class="physicsTextSource">
+<br/><br/>
+<section aria-label="Maite Studio word physics" class="physicsZone" id="physicsZone">
+<!-- Source text (hidden; gets split into draggable words) -->
+<div class="physicsTextSource">
     designer. builder. thinker.
     I create digital and physical objects that balance clarity and emotion.
     Maite Studio is an evolving archive of work, process, and intention.
     Everything here is designed with care.
   </div>
-
-  <div class="physicsBg" aria-hidden="true"></div>
-
-
-  <!-- Matter.js canvas gets injected here -->
-  <div class="physicsStage" aria-hidden="true"></div>
-
-  <br><br>
-  <!-- Feature image (974 x 545) -->
-  <figure class="featureMedia">
-    <img
-      src="./Images/Team01.JPG"
-      width="974"
-      height="545"
-      alt=""
-      loading="lazy"
-    />
-  </figure>
-
-  <!-- Caption text under image (like screenshot) -->
-  <p class="featureCaption">
-    I DESIGN WEBSITES, BRAND SYSTEMS, AND VISUAL IDENTITIES BUILT WITH CARE.
+<div aria-hidden="true" class="physicsBg"></div>
+<!-- Matter.js canvas gets injected here -->
+<div aria-hidden="true" class="physicsStage"></div>
+<br/><br/>
+<!-- Feature image (974 x 545) -->
+<figure class="featureMedia">
+<img alt="" height="545" loading="lazy" src="./Images/Team01.JPG" width="974"/>
+</figure>
+<!-- Caption text under image (like screenshot) -->
+<p class="featureCaption">
+    I DESIGN WEBSITES, BRAND SYSTEMS, AND VISUAL IDENTITIES THAT HELP TELL A STORY.
     MY WORK IS ROOTED IN COMMUNITY, AND IN CREATING EXPERIENCES THAT HELP PEOPLE FEEL SEEN AND CONNECTED.
     I BELIEVE THE RIGHT WORK CONNECTS WITH THE RIGHT PEOPLE &lt;3
   </p>
-
-
-  <!-- Minimal footer (space for words to settle) -->
-  <footer class="miniFooter" aria-label="Footer">
-    <nav class="miniFooter__nav" aria-label="Footer links">
-      <a href="webportfolio.html">WORK</a>
-      <a href="playlist.html">💽</a>
-      <a href="mailto:maite.studio@outlook.com">CONTACT</a>
-    </nav>
-  </footer>
+<!-- Minimal footer (space for words to settle) -->
+<footer aria-label="Footer" class="miniFooter">
+<nav aria-label="Footer links" class="miniFooter__nav">
+<a href="webportfolio.html">WORK</a>
+<a href="playlist.html">💽</a>
+<a href="mailto:maite.studio@outlook.com">CONTACT</a>
+</nav>
+</footer>
 </section>
-
-
 <script>
 const btn = document.querySelector(".nav-toggle");
 const menu = document.getElementById("navMenu");
@@ -626,9 +572,8 @@ document.addEventListener("keydown", (e) => {
 });
 }
 </script>
-
- <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
     const el = document.getElementById("word");
     const text = el.textContent;
     el.textContent = "";
@@ -698,9 +643,7 @@ document.addEventListener("keydown", (e) => {
     }
     loop();
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
 <script>
 (() => {
   const root = document.getElementById("physicsZone");
@@ -824,7 +767,5 @@ document.addEventListener("keydown", (e) => {
   io.observe(root);
 })();
 </script>
-
-
 </body>
 </html>

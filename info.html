@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Maite Studio — Info</title>
+<style>
+:root{
+  --bg:#ffffff;
+  --fg:#0b0b0b;
+  --hair:rgba(11,11,11,.10);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  overflow-x:hidden;
+}
+
+/* layout */
+.wrap{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:60px 24px;
+}
+
+.content{
+  max-width:720px;
+  width:100%;
+}
+
+/* highlight intro */
+.highlight{
+  font-size:18px;
+  font-weight: 200;
+  text-transform: uppercase;
+  line-height:1.6;
+  padding-bottom:28px;
+  margin-bottom:28px;
+  border-bottom:1px solid var(--hair);
+}
+
+/* body text */
+.content p{
+  font-size:15px;
+  line-height:1.75;
+  margin:0 0 20px 0;
+}
+
+/* back arrow (same as playlist page) */
+.back-arrow{
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  width:40px;
+  height:20px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  opacity:.6;
+  padding:0;
+  z-index:1000;
+}
+
+.back-arrow::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:12px;
+  width:22px;
+  height:1.5px;
+  background:var(--fg);
+  transform:translateY(-50%);
+}
+
+.back-arrow::after{
+  content:"";
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-left:1.5px solid var(--fg);
+  border-bottom:1.5px solid var(--fg);
+  transform:rotate(45deg);
+  top:50%;
+  left:4px;
+  transform-origin:center;
+  translate:0 -50%;
+}
+
+.back-arrow:hover{
+  opacity:1;
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="content">
+<div class="highlight">
+      Lorena is a multidisciplinary designer. She likes her coffee strong and hot, loves breakfasts at her Mama Julia’s house in San Salvador (or at her tias just outside of SV), and dreams of one day having a library room in her own cozy, eclectic home. She currently works and lives just outside New York City.
+    </div>
+<p>
+      If you’re reading this and happened to notice the little info button in the top corner, hi! Welcome! I’m Lorena. Maite is my middle name.
+    </p>
+<p>
+      I built this page to share a little bit more of myself.
+    </p>
+<p>
+      For as long as I can remember, I’ve always been a bit closed off. Very much to myself one could say. Even with the people I love and trust. When I struggle to express what’s on my mind or heart, I’ve always found another way to be seen and heard. Through music. Through films. Through books, essays, photography, paintings.
+    </p>
+<p>
+      Art, and the act of creating, has always been my safe haven. I need to feel inspired in order to feel like I am here. So creating is how I process. It’s how I soften. It’s how I understand myself.
+    </p>
+<p>
+      In moments of heartbreak, I’ve taken myself to an art museum. On days I feel a little out of sorts (or incredibly in good sorts) I go on long walks with my headphones on. And at least once a year, I always return to Edward Yang’s Taiwanese film, Yi Yi, to reconnect with a feeling of familiarity (even though I am not Taiwanese).
+    </p>
+<p>
+      So that is why I decided to share some of the music that inspires me daily, especially when I’m working.
+    </p>
+<p>
+      These playlists are influenced by the exposures and experiences I’ve encountered throughout the years. From admiring the early-2000s CD players in my Tía Silvia’s living room, to the music my dad grew up on, to a film by the same name, inspired by David Hockney’s A Bigger Splash, these are the sounds that make up my days.
+    </p>
+<p>
+      I hope you enjoy them and find something that stays with you. Feel free to explore some of my other playlists that aren’t featured on this page.
+      And one more thing… thank you sooo much for visiting &lt;3
+    </p>
+</section>
+</main>
+<script>
+function goBack(){
+  if (document.referrer !== "") {
+    window.history.back();
+  } else {
+    window.location.href = "/";
+  }
+}
+</script>
+<button aria-label="Go back" class="back-arrow" onclick="goBack()"></button>
+</body>
+</html>

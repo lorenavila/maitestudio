@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Maite Studio — Playlist</title>
-
 <style>
 :root{
   --bg: #ffffff;
@@ -15,6 +15,7 @@
 /* base */
 *{ box-sizing:border-box; }
 html, body{ height:100%; }
+
 body{
   margin:0;
   background: var(--bg);
@@ -32,15 +33,15 @@ body{
 
 .grid{
   display: grid;
-  grid-template-columns: repeat(2, 225.75px);
+  grid-template-columns: repeat(2, 215px);
   gap: .25rem;
   justify-content: center;
 }
 
 /* vinyl button */
 .vinyl{
-  width: 225px;
-  height: 225px;
+  width: 215px;
+  height: 215px;
   border-radius: 999px;
   border: none;
   background: transparent;
@@ -150,55 +151,68 @@ body{
 }
 
 
+
+
+/* tiny corner info button */
+.info-button{
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--fg);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--fg);
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  opacity: .5;
+  padding: 0;
+  z-index: 1000;
+}
+.info-button:hover{ opacity: 1; }
 </style>
 </head>
-
 <body>
 <main class="wrap">
-  <section class="grid" id="grid" aria-label="Playlist vinyl grid">
-    <!-- PLAYLIST (8) -->
-    <button class="vinyl" data-letter="P" data-spotify="https://open.spotify.com/playlist/4So1sUqL2TxZvrvZV3FH1p?si=26881c6b73d34de2">
-      <span class="vinylLetter">P</span>
-      <img src="./Images/sony.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="L" data-spotify="https://open.spotify.com/playlist/5AwDBUGzcFqXq7ONoMGyrq?si=b4cnpN7lSqO9ECP69Ly8jQ">
-      <span class="vinylLetter">L</span>
-      <img src="./Images/atmyaltar.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="A" data-spotify="https://open.spotify.com/playlist/6SCXw7NGSDnIi5mo3Foxch?si=k6JAcEdRTWmeUQP7dgjMkQ">
-      <span class="vinylLetter">L</span>
-      <img src="./Images/parasoñar.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="Y" data-spotify="https://open.spotify.com/playlist/0eFOl726OXzIdE0QBFEBtu?si=-TVkzVw_RduFuTuWmCK0uQ">
-      <span class="vinylLetter">I</span>
-      <img src="./Images/newyorker.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="L" data-spotify="https://open.spotify.com/playlist/6X5O5dBew74GVe7oVcjxnR?si=x9fRZOOMS0eWS7I5NDWL5Q">
-      <span class="vinylLetter">A</span>
-      <img src="./Images/roi.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="I" data-spotify="https://open.spotify.com/playlist/3l8JQFZze3Do9OIoidRk8s?si=luWjiWWKRDacC5U_I600dw">
-      <span class="vinylLetter">S</span>
-      <img src="./Images/fridaynight.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="S" data-spotify="https://open.spotify.com/playlist/3ilIEfVB5Lz7c9tLTYULLL?si=G9in1tXnSum_tcJznL3n3w">
-      <span class="vinylLetter">Y</span>
-      <img src="./Images/coolgirl.png" alt="">
-    </button>
-
-    <button class="vinyl" data-letter="T" data-spotify="https://open.spotify.com/playlist/4XnGaDOdrDVqjhw8kd2iPh?si=8NSwYZONQ1OUBipw_FaSVA8">
-      <span class="vinylLetter">T</span>
-      <img src="./Images/shuffle.png" alt="">
-    </button>
-  </section>
+<section aria-label="Playlist vinyl grid" class="grid" id="grid">
+<!-- PLAYLIST (8) -->
+<button class="vinyl" data-letter="P" data-spotify="https://open.spotify.com/playlist/4So1sUqL2TxZvrvZV3FH1p?si=26881c6b73d34de2">
+<span class="vinylLetter">P</span>
+<img alt="" src="./Images/sony.png"/>
+</button>
+<button class="vinyl" data-letter="L" data-spotify="https://open.spotify.com/playlist/5AwDBUGzcFqXq7ONoMGyrq?si=b4cnpN7lSqO9ECP69Ly8jQ">
+<span class="vinylLetter">L</span>
+<img alt="" src="./Images/atmyaltar.png"/>
+</button>
+<button class="vinyl" data-letter="A" data-spotify="https://open.spotify.com/playlist/6SCXw7NGSDnIi5mo3Foxch?si=k6JAcEdRTWmeUQP7dgjMkQ">
+<span class="vinylLetter">L</span>
+<img alt="" src="./Images/parasoñar.png"/>
+</button>
+<button class="vinyl" data-letter="Y" data-spotify="https://open.spotify.com/playlist/0eFOl726OXzIdE0QBFEBtu?si=-TVkzVw_RduFuTuWmCK0uQ">
+<span class="vinylLetter">I</span>
+<img alt="" src="./Images/newyorker.png"/>
+</button>
+<button class="vinyl" data-letter="L" data-spotify="https://open.spotify.com/playlist/6X5O5dBew74GVe7oVcjxnR?si=x9fRZOOMS0eWS7I5NDWL5Q">
+<span class="vinylLetter">A</span>
+<img alt="" src="./Images/roi.png"/>
+</button>
+<button class="vinyl" data-letter="I" data-spotify="https://open.spotify.com/playlist/3l8JQFZze3Do9OIoidRk8s?si=luWjiWWKRDacC5U_I600dw">
+<span class="vinylLetter">S</span>
+<img alt="" src="./Images/fridaynight.png"/>
+</button>
+<button class="vinyl" data-letter="S" data-spotify="https://open.spotify.com/playlist/3ilIEfVB5Lz7c9tLTYULLL?si=G9in1tXnSum_tcJznL3n3w">
+<span class="vinylLetter">Y</span>
+<img alt="" src="./Images/coolgirl.png"/>
+</button>
+<button class="vinyl" data-letter="T" data-spotify="https://open.spotify.com/playlist/4XnGaDOdrDVqjhw8kd2iPh?si=8NSwYZONQ1OUBipw_FaSVA8">
+<span class="vinylLetter">T</span>
+<img alt="" src="./Images/shuffle.png"/>
+</button>
+</section>
 </main>
-
 <script>
   const grid = document.getElementById("grid");
   const vinyls = Array.from(document.querySelectorAll(".vinyl"));
@@ -255,7 +269,6 @@ body{
 }
   });
 </script>
-
 <script>
   function goBack(){
   if (document.referrer !== "") {
@@ -266,9 +279,6 @@ body{
 }
 
 </script>
-
-<button class="back-arrow" onclick="goBack()" aria-label="Go back"></button>
-
-
-</body>
+<button aria-label="Information" class="info-button" onclick="openInfo()" type="button">i</button><button aria-label="Go back" class="back-arrow" onclick="goBack()"></button>
+<script>function openInfo(){ window.location.href = 'info.html'; }</script></body>
 </html>

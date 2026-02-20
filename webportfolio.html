@@ -1,31 +1,15 @@
 <!-- =========================
 webportfolio.html
 ========================= -->
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Maite Studio — Web</title>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Maite Studio — Web</title>
+<style>
     html, body { overflow-x: hidden; }
-    @font-face{
-      font-family:"Maison Neue";
-      src:url("./Maison Neue/MaisonNeue-Book.woff2") format("woff2"),
-          url("./Maison Neue/MaisonNeue-Book.woff") format("woff");
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
-    }
-    @font-face{
-      font-family:"Maison Neue";
-      src:url("./Maison Neue/MaisonNeue-Medium.woff2") format("woff2"),
-          url("./Maison Neue/MaisonNeue-Medium.woff") format("woff");
-      font-weight:500;
-      font-style:normal;
-      font-display:swap;
-    }
 
     :root{
       --bg:#fff;
@@ -617,119 +601,109 @@ html, body { overflow-x: hidden; }
   .modal__media img, #modalImg{ max-height: 36vh; }
 }
 
+/* Minimal footer with landing space */
+.miniFooter{
+  position: relative;
+  z-index: 2;
+  margin-top: 140px;
+  padding: 40px var(--padX) 60px;
+}
+.miniFooter__nav{
+  display:flex;
+  justify-content:center;
+  gap: 22px;
+  font-size: var(--micro);
+  color: rgba(11,11,11,.45);
+}
+.miniFooter__nav a{
+  pointer-events: auto; /* links clickable */
+  color: inherit;
+}
 </style>
 </head>
-
 <body>
-  <header class="topnav">
-    <div class="topnav__row">
-      <div class="nav-left">
-        <a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
-      </div>
-
-      <div class="nav-center">Creative Studio</div>
-
-      <!-- Mobile toggle -->
-<button class="nav-toggle" type="button"
-aria-label="Open menu"
-aria-expanded="false"
-aria-controls="navMenu">
+<header class="topnav">
+<div class="topnav__row">
+<div class="nav-left">
+<a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
+</div>
+<div class="nav-center">Creative Studio</div>
+<!-- Mobile toggle -->
+<button aria-controls="navMenu" aria-expanded="false" aria-label="Open menu" class="nav-toggle" type="button">
 <span aria-hidden="true"></span>
 </button>
-
 <!-- Desktop nav (unchanged) -->
 <div class="nav-right">
-<nav class="nav-tabs" aria-label="Primary">
-<a class="nav-link" href="index.html">Home</a>
-<a class="nav-link" href="services.html">Services</a>
-<a class="nav-link" href="photography.html">Photography</a>
-<a class="nav-link" href="webportfolio.html" aria-current="page">Web</a>
-<a class="nav-link" href="graphics.html">Graphics</a>
-</nav>
-
+<nav aria-label="Primary" class="nav-tabs"><a class="nav-link" href="index.html">Home</a><a class="nav-link" href="services.html">Services</a><a class="nav-link" href="photography.html">Photography</a><a aria-current="page" class="nav-link" href="webportfolio.html">Web</a><a class="nav-link" href="graphics.html">Graphics</a><a class="nav-link" href="branding.html">Branding</a><a class="nav-link" href="products.html">Products</a></nav>
 <a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
-<span class="dot" aria-hidden="true"></span>
+<span aria-hidden="true" class="dot"></span>
 </div>
-
 <!-- Mobile drawer menu -->
-<div class="nav-drawer" id="navMenu" data-open="false">
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="photography.html">Photography</a>
-<a href="webportfolio.html">Web</a>
-<a href="graphics.html">Graphics</a>
-
-<div class="divider" role="separator" aria-hidden="true"></div>
-
-<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
+<div class="nav-drawer" data-open="false" id="navMenu"><a href="index.html">Home</a><a href="services.html">Services</a><a href="photography.html">Photography</a><a href="webportfolio.html">Web</a><a href="graphics.html">Graphics</a><a href="branding.html">Branding</a><a href="products.html">Products</a><div class="divider"></div><a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a></div>
 </div>
-    </div>
-  </header>
-
-  <main class="page">
-    <section class="hero" aria-label="Hero">
-      <h1 class="hero__title">Maite<sup>°</sup></h1>
-
-      <div class="hero__meta">
-        <div></div>
-        <div class="hero__metaRight">
+</header>
+<main class="page">
+<section aria-label="Hero" class="hero">
+<h1 class="hero__title">Maite<sup>°</sup></h1>
+<div class="hero__meta">
+<div></div>
+<div class="hero__metaRight">
           Thoughtful web design focused on clarity and usability — crafted to help businesses tell their story and connect with their community.
         </div>
-      </div>
-
-      <div class="controls" aria-label="Controls">
-        <div class="controls__label">
+</div>
+<div aria-label="Controls" class="controls">
+<div class="controls__label">
           Selected Works<span id="countLabel">(00)</span>
-        </div>
+</div>
+<div aria-label="View tabs" class="tabs" role="tablist">
+<button aria-selected="true" class="tab" data-view="grid" role="tab">Grid</button>
+<button aria-selected="false" class="tab" data-view="list" role="tab">List</button>
+<button aria-selected="false" class="tab" data-view="feed" role="tab">Feed</button>
+<button aria-selected="false" class="tab" data-view="full" role="tab">Full</button>
+</div>
+</div>
+</section>
+<section aria-label="Gallery" aria-live="polite" class="gallery">
+<div id="galleryRoot"></div>
+</section>
+</main>
+<!-- Modal -->
+<section aria-hidden="true" aria-label="Project modal" class="modal" id="modal">
+<div class="modal__backdrop" id="modalBackdrop"></div>
+<div aria-labelledby="modalTitle" aria-modal="true" class="modal__panel" role="dialog">
+<div class="modal__grid">
+<div class="modal__media">
+<img alt="" id="modalImg"/>
+</div>
+<div class="modal__content">
+<div class="modal__top">
+<div>
+<h2 class="modal__title" id="modalTitle">Project</h2>
+<div class="modal__meta" id="modalMeta">2025 • Website</div>
+</div>
+<button aria-label="Close" class="modal__close" id="modalClose">✕</button>
+</div>
+<div class="modal__desc" id="modalDesc">Placeholder description. Replace with your own project copy.</div>
+<div class="modal__status" id="modalStatus"></div>
+<ul class="modal__features" id="modalFeatures"></ul>
+<div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;">
+<span class="pill" id="modalTag1">Design</span>
+<span class="pill" id="modalTag2">Build</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Minimal footer (space for words to settle) -->
+<footer aria-label="Footer" class="miniFooter">
+<nav aria-label="Footer links" class="miniFooter__nav">
+<a href="webportfolio.html">WORK</a>
+<a href="playlist.html">💽</a>
+<a href="mailto:maite.studio@outlook.com">CONTACT</a>
+</nav>
+</footer>
 
-        <div class="tabs" role="tablist" aria-label="View tabs">
-          <button class="tab" role="tab" aria-selected="true" data-view="grid">Grid</button>
-          <button class="tab" role="tab" aria-selected="false" data-view="list">List</button>
-          <button class="tab" role="tab" aria-selected="false" data-view="feed">Feed</button>
-          <button class="tab" role="tab" aria-selected="false" data-view="full">Full</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="gallery" aria-live="polite" aria-label="Gallery">
-      <div id="galleryRoot"></div>
-    </section>
-  </main>
-
-  <!-- Modal -->
-  <section class="modal" id="modal" aria-hidden="true" aria-label="Project modal">
-    <div class="modal__backdrop" id="modalBackdrop"></div>
-
-    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal__grid">
-        <div class="modal__media">
-          <img id="modalImg" alt="" />
-        </div>
-
-        <div class="modal__content">
-          <div class="modal__top">
-            <div>
-              <h2 class="modal__title" id="modalTitle">Project</h2>
-              <div class="modal__meta" id="modalMeta">2025 • Website</div>
-            </div>
-
-            <button class="modal__close" id="modalClose" aria-label="Close">✕</button>
-          </div>
-
-          <div class="modal__desc" id="modalDesc">Placeholder description. Replace with your own project copy.</div>
-          <div class="modal__status" id="modalStatus"></div>
-          <ul class="modal__features" id="modalFeatures"></ul>
-
-          <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;">
-            <span class="pill" id="modalTag1">Design</span>
-            <span class="pill" id="modalTag2">Build</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
+<script>
     const works = [
       {
         id: 1,
@@ -1025,7 +999,7 @@ ${item.status ? `<div class="row__status">${item.status}</div>` : ""}
 
     render();
   </script>
-  <script>
+<script>
   const btn = document.querySelector(".nav-toggle");
   const menu = document.getElementById("navMenu");
 
@@ -1052,6 +1026,5 @@ ${item.status ? `<div class="row__status">${item.status}</div>` : ""}
     });
   }
 </script>
-
 </body>
 </html>

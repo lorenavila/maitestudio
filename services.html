@@ -1,32 +1,15 @@
 <!-- =========================
 services.html
 ========================= -->
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Maite Studio — Services</title>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Maite Studio — Services</title>
+<style>
     html, body { overflow-x: hidden; }
-    /* ---------- FONTS ---------- */
-    @font-face{
-      font-family:"Maison Neue";
-      src:url("./Maison Neue/MaisonNeue-Book.woff2") format("woff2"),
-          url("./Maison Neue/MaisonNeue-Book.woff") format("woff");
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
-    }
-    @font-face{
-      font-family:"Maison Neue";
-      src:url("./Maison Neue/MaisonNeue-Medium.woff2") format("woff2"),
-          url("./Maison Neue/MaisonNeue-Medium.woff") format("woff");
-      font-weight:500;
-      font-style:normal;
-      font-display:swap;
-    }
 
     :root{
       --bg:#fff;
@@ -305,161 +288,147 @@ html, body { overflow-x: hidden; }
       .service-row > :nth-child(3){ grid-column: 2; }
       .logo-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
+
+    /* Minimal footer with landing space */
+.miniFooter{
+  position: relative;
+  z-index: 2;
+  margin-top: 140px;
+  padding: 40px var(--padX) 60px;
+}
+.miniFooter__nav{
+  display:flex;
+  justify-content:center;
+  gap: 22px;
+  font-size: var(--micro);
+  color: rgba(11,11,11,.45);
+}
+.miniFooter__nav a{
+  pointer-events: auto; /* links clickable */
+  color: inherit;
+}
   </style>
 </head>
-
 <body>
-  <header class="topnav">
-    <div class="topnav__row">
-      <div class="nav-left">
-        <a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
-      </div>
-
-      <div class="nav-center">Creative Studio</div>
-
-      <!-- Mobile toggle -->
-<button class="nav-toggle" type="button"
-aria-label="Open menu"
-aria-expanded="false"
-aria-controls="navMenu">
+<header class="topnav">
+<div class="topnav__row">
+<div class="nav-left">
+<a href="index.html" id="brand">Maite Studio<sup>°</sup></a>
+</div>
+<div class="nav-center">Creative Studio</div>
+<!-- Mobile toggle -->
+<button aria-controls="navMenu" aria-expanded="false" aria-label="Open menu" class="nav-toggle" type="button">
 <span aria-hidden="true"></span>
 </button>
-
 <!-- Desktop nav (unchanged) -->
 <div class="nav-right">
-<nav class="nav-tabs" aria-label="Primary">
-<a class="nav-link" href="index.html">Home</a>
-<a class="nav-link" href="services.html" aria-current="page">Services</a>
-<a class="nav-link" href="photography.html">Photography</a>
-<a class="nav-link" href="webportfolio.html">Web</a>
-<a class="nav-link" href="graphics.html">Graphics</a>
-</nav>
-
+<nav aria-label="Primary" class="nav-tabs"><a class="nav-link" href="index.html">Home</a><a aria-current="page" class="nav-link" href="services.html">Services</a><a class="nav-link" href="photography.html">Photography</a><a class="nav-link" href="webportfolio.html">Web</a><a class="nav-link" href="graphics.html">Graphics</a><a class="nav-link" href="branding.html">Branding</a><a class="nav-link" href="products.html">Products</a></nav>
 <a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
-<span class="dot" aria-hidden="true"></span>
+<span aria-hidden="true" class="dot"></span>
 </div>
-
 <!-- Mobile drawer menu -->
-<div class="nav-drawer" id="navMenu" data-open="false">
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="photography.html">Photography</a>
-<a href="webportfolio.html">Web</a>
-<a href="graphics.html">Graphics</a>
-
-<div class="divider" role="separator" aria-hidden="true"></div>
-
-<a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a>
+<div class="nav-drawer" data-open="false" id="navMenu"><a href="index.html">Home</a><a href="services.html">Services</a><a href="photography.html">Photography</a><a href="webportfolio.html">Web</a><a href="graphics.html">Graphics</a><a href="branding.html">Branding</a><a href="products.html">Products</a><div class="divider"></div><a href="mailto:maite.studio@outlook.com">maite.studio@outlook.com</a></div>
 </div>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <div class="info">
-      <section class="info-hero">
-        <h1 class="info-hero__title">
+</header>
+<main class="wrap">
+<div class="info">
+<section class="info-hero">
+<h1 class="info-hero__title">
           Focused on brand systems, creative direction, and product-led design.
         </h1>
-        <p>Maite Studio partners with thoughtful brands to shape identity, products, and visual systems that feel intentional, cohesive, and timeless.<br>
+<p>Maite Studio is a design practice focused on shaping identity, products, and visual systems with intention and clarity.<br/><br/>
 
-While much of my recent work has been with small businesses and independent founders, I operate with a creative-direction mindset:<br><br>designing brand systems, visual language, and products built to scale.<br><br>Maite Studio also serves as creative direction for select brands, including Crystal Conscience.
+Much of my recent work has been with small businesses and independent founders, where I approach each project through a creative-direction lens, considering not just the visuals, but the full experience of a brand.<br/><br/>
 
-<br><br>Projects are scoped collaboratively based on goals, scale, and complexity.
-Please inquire for new work or project check-ins.</p>
-      </section>
+Maite Studio currently serves as creative direction for Crystal Conscience.
 
-      <section class="services" aria-label="Services">
-        <div class="service-row">
-          <div class="service-num">1</div>
-          <div>
-            <div class="service-title">Branding & Creative Direction</div>
-          </div>
-          <div class="service-list">
+Projects are scoped collaboratively based on goals and scope. Please feel free to inquire for availability :)</p>
+</section>
+<section aria-label="Services" class="services">
+<div class="service-row">
+<div class="service-num">1</div>
+<div>
+<div class="service-title">Branding &amp; Creative Direction</div>
+</div>
+<div class="service-list">
             Brand identity systems
-            Creative direction & visual language
-            Logo systems & brand marks
-            Brand guidelines & documentation
+            Creative direction &amp; visual language
+            Logo systems &amp; brand marks
+            Brand guidelines &amp; documentation
             Visual storytelling across touchpoints
           </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-num">2</div>
-          <div>
-            <div class="service-title">Product, Web & Digital Design</div>
-          </div>
-          <div class="service-list">
-            Product & packaging design
-            Website design & development
+</div>
+<div class="service-row">
+<div class="service-num">2</div>
+<div>
+<div class="service-title">Product, Web &amp; Digital Design</div>
+</div>
+<div class="service-list">
+            Product &amp; packaging design
+            Website design &amp; development
             UI/UX and layout systems
             Design systems for digital platforms
             Platform builds (Shopify, WordPress, Framer, Squarespace, Wix and more.)
           </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-num">3</div>
-          <div>
-            <div class="service-title">Photography & Visual Assets</div>
-          </div>
-          <div class="service-list">
-            Brand & product photography
+</div>
+<div class="service-row">
+<div class="service-num">3</div>
+<div>
+<div class="service-title">Photography &amp; Visual Assets</div>
+</div>
+<div class="service-list">
+            Brand &amp; product photography
             Editorial and lifestyle imagery
             Content for web, campaigns, and social
             Visual assets designed for digital use
           </div>
-        </div>
-      </section>
-<br><br>
-      <section class="info-hero">
-        <h1 class="info-hero__title">
+</div>
+</section>
+<br/><br/>
+<section class="info-hero">
+<h1 class="info-hero__title">
           Tech Stack
         </h1>
-      </section>
-
-      <section class="services" aria-label="Services">
-        <div class="service-row">
-          <div class="service-num">1</div>
-          <div>
-            <div class="service-title">Platforms</div>
-          </div>
-          <div class="service-list">
+</section>
+<section aria-label="Services" class="services">
+<div class="service-row">
+<div class="service-num">1</div>
+<div>
+<div class="service-title">Platforms</div>
+</div>
+<div class="service-list">
             Shopify · WordPress · Framer · Squarespace · Wix · +More
           </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-num">2</div>
-          <div>
-            <div class="service-title">Design</div>
-          </div>
-          <div class="service-list">
+</div>
+<div class="service-row">
+<div class="service-num">2</div>
+<div>
+<div class="service-title">Design</div>
+</div>
+<div class="service-list">
             Figma · Adobe Illustrator · Adobe InDesign · Adobe Photoshop
           </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-num">3</div>
-          <div>
-            <div class="service-title">Collaboration</div>
-          </div>
-          <div class="service-list">
+</div>
+<div class="service-row">
+<div class="service-num">3</div>
+<div>
+<div class="service-title">Collaboration</div>
+</div>
+<div class="service-list">
             Notion · Figma · Dropbox · Google Drive
           </div>
-        </div>
-
-        <div class="service-row">
-          <div class="service-num">4</div>
-          <div>
-            <div class="service-title">Development</div>
-          </div>
-          <div class="service-list">
+</div>
+<div class="service-row">
+<div class="service-num">4</div>
+<div>
+<div class="service-title">Development</div>
+</div>
+<div class="service-list">
            HTML · CSS · Javascript
           </div>
-        </div>
-      </section>
-
-      <!-- <section class="logos" aria-label="Selected clients">
+</div>
+</section>
+<!-- <section class="logos" aria-label="Selected clients">
         <div class="logos__label">Selected Clients</div>
         <div class="logo-grid">
           <div class="logo-tile"><img src="./images/logo-01.png" alt="" /></div>
@@ -476,9 +445,18 @@ Please inquire for new work or project check-ins.</p>
           <div class="logo-tile"><img src="./images/logo-12.png" alt="" /></div>
         </div>
       </section> -->
-    </div>
-  </main>
-  <script>
+</div>
+<!-- Minimal footer (space for words to settle) -->
+<footer aria-label="Footer" class="miniFooter">
+<nav aria-label="Footer links" class="miniFooter__nav">
+<a href="webportfolio.html">WORK</a>
+<a href="playlist.html">💽</a>
+<a href="mailto:maite.studio@outlook.com">CONTACT</a>
+</nav>
+</footer>
+
+</main>
+<script>
   const btn = document.querySelector(".nav-toggle");
   const menu = document.getElementById("navMenu");
 
@@ -505,6 +483,5 @@ Please inquire for new work or project check-ins.</p>
     });
   }
 </script>
-
 </body>
 </html>

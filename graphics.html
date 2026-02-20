@@ -8,6 +8,7 @@ graphics.html
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Maite Studio — Graphics</title>
+<link rel="icon" type="image/x-icon" href="MSLogo.png">
 <style>
     html, body { overflow-x: hidden; }
     
@@ -982,7 +983,7 @@ html, body { overflow-x: hidden; }
         year: "2025",
         role: "Graphic",
         tags: ["Graphic Design", "Figma"],
-        img:"./Images/KKGraphic01.png",
+        img:"./Images/KKgraphic01.png",
         desc: "A series of abstract graphics created to visually represent Krystal Kartel’s different product collections. Each piece uses soft gradients and simple circular forms to reflect energy, intention, and emotional states, rather than literal symbols.",
         // status: "Updated by client post-launch",
         features: [
@@ -1246,5 +1247,11 @@ ${item.status ? `<div class="row__status">${item.status}</div>` : ""}
     });
   }
 </script>
+<script>
+        if (window.location.pathname.endsWith('.html')) {
+    const newPath = window.location.pathname.replace('.html', '');
+    history.replaceState(null, '', newPath);
+    }
+    </script>
 </body>
 </html>

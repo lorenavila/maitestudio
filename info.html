@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Maite Studio — Info</title>
+<link rel="icon" type="image/x-icon" href="MSLogo.png">
 <style>
 :root{
   --bg:#ffffff;
@@ -143,5 +144,11 @@ function goBack(){
 }
 </script>
 <button aria-label="Go back" class="back-arrow" onclick="goBack()"></button>
+<script>
+        if (window.location.pathname.endsWith('.html')) {
+    const newPath = window.location.pathname.replace('.html', '');
+    history.replaceState(null, '', newPath);
+    }
+    </script>
 </body>
 </html>

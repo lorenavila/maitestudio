@@ -8,6 +8,7 @@ services.html
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Maite Studio — Services</title>
+<link rel="icon" type="image/x-icon" href="MSLogo.png">
 <style>
     html, body { overflow-x: hidden; }
 
@@ -482,6 +483,12 @@ Projects are scoped collaboratively based on goals and scope. Please feel free t
       if (e.key === "Escape") setOpen(false);
     });
   }
+</script>
+<script>
+        if (window.location.pathname.endsWith('.html')) {
+    const newPath = window.location.pathname.replace('.html', '');
+    history.replaceState(null, '', newPath);
+    }
 </script>
 </body>
 </html>

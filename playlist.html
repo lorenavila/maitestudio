@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Maite Studio — Playlist</title>
+<link rel="icon" type="image/x-icon" href="MSLogo.png">
 <style>
 :root{
   --bg: #ffffff;
@@ -15,6 +16,7 @@
 /* base */
 *{ box-sizing:border-box; }
 html, body{ height:100%; }
+
 
 body{
   margin:0;
@@ -48,6 +50,7 @@ body{
   padding: 0;
   cursor: pointer;
   position: relative;
+  overflow: hidden;
   display: grid;
   place-items: center;
   -webkit-tap-highlight-color: transparent;
@@ -59,7 +62,7 @@ body{
   inset: 0;
   display: grid;
   place-items: center;
-  font-size: 200px;
+  font-size: 180px;
   letter-spacing: 0.02em;
   color: var(--fg);
   border-radius: 999px;
@@ -75,7 +78,10 @@ body{
   object-fit: cover;
   display: block;
   opacity: 0;
-  /* filter: drop-shadow(0 20px 30px rgba(0,0,0,.10)); */
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 /* when “loaded”, image is shown and letter is removed (instant) */
@@ -87,19 +93,29 @@ body{
   animation: spin 2.2s linear infinite;
 }
 @keyframes spin{
-  to { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* responsive */
 @media (max-width: 640px){
+  :root{
+    --pad: 16px;
+    --gap: 30px;
+  }
+
   .grid{
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    padding: 0 16px;
+    gap: var(--gap);
+    padding: 0 var(--pad);
+    width: 100%;
   }
+
+  /* PERFECT FIT:
+     (viewport - left/right padding - gap) / 2 */
   .vinyl{
-    width: 45vw;
-    height: 45vw;
+    width: calc((100vw - (var(--pad) * 2) - var(--gap)) / 2);
+    height: calc((100vw - (var(--pad) * 2) - var(--gap)) / 2);
   }
 }
 
@@ -277,8 +293,14 @@ body{
     window.location.href = "/";
   }
 }
-
 </script>
 <button aria-label="Information" class="info-button" onclick="openInfo()" type="button">i</button><button aria-label="Go back" class="back-arrow" onclick="goBack()"></button>
-<script>function openInfo(){ window.location.href = 'info.html'; }</script></body>
+<script>function openInfo(){ window.location.href = 'info.html'; }</script>
+<script>
+        if (window.location.pathname.endsWith('.html')) {
+    const newPath = window.location.pathname.replace('.html', '');
+    history.replaceState(null, '', newPath);
+    }
+    </script>
+</body>
 </html>

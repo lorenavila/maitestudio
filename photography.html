@@ -702,43 +702,57 @@ place-items:center;
 </footer>
 
 <script>
-// Your “OG method” list (auto-mapped into objects)
 const works = [
-"Stretch01.jpg",
-"Stretch03.jpg",
-"Stretch04.JPG",
-"Adrianna01.JPG",
-"Mat01.JPG",
-"Meditation01.JPG",
-"Paolo01.JPG",
-"Sound01.jpg",
-"Sound02.JPG",
-"Sound03.JPG",
-"Sound04.jpg",
-"Sound05.jpg",
-"Sound06.JPG",
-"Sound07.JPG",
-"Sound09.JPG",
-"Sound10.jpg",
-"Sound11.jpg",
-"Sound12.JPG",
-"Sound13.JPG",
-"Sound14.jpg",
-"Sound16.JPG",
-"Sound17.jpg",
-"Sound18.jpg",
-"Sound21.JPG",
-"Sound22.JPG",
-"Stretch05.jpg",
-"Stretch06.jpg"
-].map((file, i) => ({
-id: i + 1,
-title: "Crystal Conscience @ Montauk OM",
-year: "2026",
-role: "Brand Content",
-tags: ["Photography", "Fujifilm XT2"],
-img: `./Images/CC/${file}`
-}));
+  ...[
+    // 👇 NEW FILES FIRST
+    "CND.jpg",
+    "CNDRoW.jpg",
+
+    // 👇 EXISTING FILES
+    "Stretch01.jpg",
+    "Stretch03.jpg",
+    "Stretch04.JPG",
+    "Adrianna01.JPG",
+    "Mat01.JPG",
+    "Meditation01.JPG",
+    "Paolo01.JPG",
+    "Sound01.jpg",
+    "Sound02.JPG",
+    "Sound03.JPG",
+    "Sound04.jpg",
+    "Sound05.jpg",
+    "Sound06.JPG",
+    "Sound07.JPG",
+    "Sound09.JPG",
+    "Sound10.jpg",
+    "Sound11.jpg",
+    "Sound12.JPG",
+    "Sound13.JPG",
+    "Sound14.jpg",
+    "Sound16.JPG",
+    "Sound17.jpg",
+    "Sound18.jpg",
+    "Sound21.JPG",
+    "Sound22.JPG",
+    "Stretch05.jpg",
+    "Stretch06.jpg"
+  ].map((file, i) => {
+    const isCasa = file === "CND.jpg" || file === "CNDRoW.jpg";
+
+    return {
+      id: i + 1,
+      title: isCasa
+        ? "Crystal Conscience x Casa Magazines & Casa Next Door NYC"
+        : "Crystal Conscience @ Montauk OM",
+      year: "2026",
+      role: isCasa
+        ? "Roots of Wellness Content"
+        : "Brand Content",
+      tags: ["Photography", "Fujifilm XT2"],
+      img: `./Images/CC/${file}`
+    };
+  })
+];
 
 const root = document.getElementById("galleryRoot");
 const countLabel = document.getElementById("countLabel");
